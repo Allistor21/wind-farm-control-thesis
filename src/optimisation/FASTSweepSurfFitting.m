@@ -16,7 +16,7 @@ for i = 1:length(pitchArray)
 
     %Load the sweeps Struct and Outlist, corresponding to a pitch value.
     pitch = pitchArray(i);
-    str = [ 'C:\Users\mfram\Documents\GitHub\wind-farm-thesis\NREL5MW_AxialCase\simulations\sweepUvsTIdataset_updt\theta__' num2str(pitch) '.mat'  ];
+    str = [ 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\simulations\sweepUvsTIdataset_updt\theta__' num2str(pitch) '.mat'  ];
     disp(['Loading UvsTI sweep for pitch = ' num2str(pitch) ' degrees']);
     load(str,'sweepStruct','OutList');
     

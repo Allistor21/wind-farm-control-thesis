@@ -7,13 +7,13 @@ clear all
 tic;
 
 %Change to case folder
-cd C:\Users\mfram\Documents\GitHub\wind-farm-control-investigation\NREL5MW_AxialCase
+cd C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase
 
 %Clear build folder
 rmdir build s
-copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-investigation\src\templates\* build
+copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\src\templates\* build
 %Get all turbSim files.
-copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-investigation\NREL5MW_AxialCase\data\turbSimFiles\* build
+copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\turbSimFiles\* build
 addpath build
 cd build
 

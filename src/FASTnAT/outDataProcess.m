@@ -11,7 +11,7 @@ if nargin < 4
 end
 
 %Run OutDataFilterOnset and OutDataAnalyse on FAST results.
-%data = outDataFilterOnset(timeFilter,outData);
+data = outDataFilterOnset(timeFilter,data);
 [data,newOutList] = outDataCombineLoads(data,outList);
 analysisMatrix = outDataAnalyse(outputArray,data,newOutList);
     

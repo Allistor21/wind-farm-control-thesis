@@ -9,7 +9,7 @@ function FASTnAToutput = FASTnAT(N,pitchSettings,Uinf,TIinf,X,TMax,wakeModelType
 %FAST only publishes the OutList variable (critical for findLineNumber
 %function) when a run is over, regardless of where the sim() command is
 %placed. So, for now, OutList is loaded here as a variable.
-load('C:\Users\mfram\Documents\GitHub\wind-farm-thesis\NREL5MW_AxialCase\data\OutList.mat');
+load('C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\OutList.mat');
 
 %Initialize the output variables, and declare pitch input global.
 FASTnAToutput = struct('turbineNumber',(1:1:N),'pitchSettings',pitchSettings,'turbineU',zeros(1,N),'turbineTI',zeros(1,N),'turbineData',{cell(1,N)});

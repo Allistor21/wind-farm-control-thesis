@@ -8,10 +8,10 @@ clear all
 tic;
 
 %Change to case folder
-cd C:\Users\mfram\Documents\GitHub\wind-farm-thesis\NREL5MW_AxialCase
+cd C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase
 
 rmdir build s
-copyfile C:\Users\mfram\Documents\GitHub\wind-farm-thesis\src\templates\* build
+copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\src\templates\* build
 addpath build
 cd build
 

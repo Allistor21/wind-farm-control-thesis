@@ -3,7 +3,7 @@ clear all
 
 tic
 
-load C:\Users\mfram\Documents\GitHub\wind-farm-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_5.mat
+load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_5.mat
 
 N = 2;
 TIinf = 6;
