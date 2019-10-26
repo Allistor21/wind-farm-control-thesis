@@ -1,0 +1,45 @@
+#TODO FASTnAT phase 2: Find optimal control settings for nAT, using non-linear optimization
+
+phase 2-I: Single turbine performance: function validation // Fp(Ct,U,TI) => Fp(TETA)
+    1- build data base
+        - matrixUvsTI_theta# = turbinePitchSweep(TETA,[UmeanInput],[TIInpunt]) 
+            -- function that simulates 1 instance of FAST for each pair (Umean,TI), builds a matrix of ouputs for pitch TETA
+        - run turbinePitchSweep for all TETA
+            -- PAY ATTENTION to the fact that each inflow wind condition needs to have a different rotor speed, so turbine operates in optimal TSR.
+               This is so simulations have a "fake" generator torque control.
+            -- save each run in separate variable, in folder sweepUvsTIdataset
+        - matrixUvsTI_theta# = processSweep(matrixUvsTI_theta#)
+            -- function that processes a matrixUvsTI_theta#, treating each outData (apply filterOnset) so it has only the power mean&SD
+        - Run processSweep on [matrixUvsTI_theta#]
+    2- Add loads to this code
+        - Feature combineLoads
+            -- combines blade root loads
+        - Feature processSweep
+            -- make it so it applies combineLoads, and also so it outputs the mean$SD of relevant loads
+
+NOTAS:
+    matrixUvsTI_theta# é uma struct com duas chaves: TETA e matrix U vsTI desse TETA
+    Decided to add a point to the U input, U = 7,84 , because it is close to the boundary between control region 1 1/2 and control region 2.
+    Decided to add a point to the U input, U = 10.45 , because it is close to the boundary between control region 2 and control region 2 1/2.
+
+phase 2_II: Find optimal strategy for pitch axial-induction-based control for nAT through non-linear optimization
+
+    1 - Fit curves, for power & blade root load, for each sweepUvsTI
+        - sweepFitObjArray = FASTSweepSurfFitting(outputArray,fitType)
+            -- function that loads a result workspace, processes the sweep, fits a fitType to it, and saves that object to sweepFitObjArray. Does so
+                for each output in outputArray, 1 column per output 
+            -- Consider outputting things in structurs
+        - sweepCoeffsFitObjArray = FASTSweepCoeffsCurveFitting(fitType)
+            -- function that fits a curve to each coefficient of the fit of previous function.
+            --I must study which type of fit is best. Maybe each coefficient has its own fit.
+    2 -
+    3 - Build function for optimization, that can compute different types of objective functions
+        - [pitchArray, deltaPower, deltaLoads] = FASTnAToptimiser(database,N,U,TI)
+            -- Runs non-linear optimisation on database fo N aligned turbines, with inflow wind conditions U and TI on the upstream turbine
+            -- Must be able to form different types of objective funtions. Maybe have a distinct functions for this?
+            -- Will imply changing function wakeModel
+    4 - Find optimal control strategy, for different objective functions
+        - Maximize power
+        - Minimize blade root loads
+        - Minimize ratios blade root loads/power
+        - Minimize weigthed sum of blade root loads + 1/power

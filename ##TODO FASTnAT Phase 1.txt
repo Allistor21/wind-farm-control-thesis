@@ -1,0 +1,63 @@
+##TODO
+
+- Feature: save .sum & .out files of each simulation
+- ativar utilizar .twr file, para o vento afetar a torre. pode potencialmente aumentar as loads na torre.
+
+-----------------------DESGIN OPTIMIZER---------------------------------------------------
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+Combinar loads:
+For tower load, a combined load is computed from the separate fore–aft and side–side loads using a root-sum-square combination. This is likewise carried out to combine the separate component loads on the yaw bearing.
+	- Combinar tower loads
+		- shear force: fore-aft + side-side == RSS( 'TwrBsFxt' + 'TwrBsFyt') 
+		- moment: roll (or side-to-side) and  pitching (or fore-aft) == RSS( 'TwrBsMxt' + 'TwrBsMyt' )
+	- Combine yaw bearing loads:
+		- shear force: fore-aft + side-side == RSS( 'YawBrFxp' + 'YawBrFyp' ) 
+		- moment: roll (or side-to-side) and  pitching (or fore-aft) == RSS( 'YawBrMxp' + 'YawBrMyp'  )
+
+
+Design Wind Farm controller:
+
+1. Fazer axial induction control
+	- através de pitch
+		- No modelo simulink, em ves de o bloco "pitch controller" fornecer uma coluna de zeros, fornece uma coluna de pitches input
+		- Simular uma turbina com increasin pitch settings e relativamente pouca definição, e ver o rácio Cp/Ct resultante. Escolher o melhor pitch assim
+		- Simular FAST_3AT, à volta desse pitch com mais definição, e plotar a diferença que o pitch faz na turbina 1 e 2 e 3 E NAS TRÊS, nas variáveis de estudo
+	
+
+	- através do gen torque
+		- O controlador tem uma torque-speed lookup table, que depende da negerator speed medida, e da região de controlo onde se está a operar. Alterar essa tabela. Implica fazer o cálculo de quanto tem de ser reduzido o torque, para atingir um determinado TSR
+	- através de pitch + gen torque
+		- hipotese 1: para cada ponto de TSR, testar vários pitches. Há de haver um combo pitch + TSR que faz o melhor controlo axial.
+		- Hipótese 2: Usar otimização para descobrir este par pitch + TSR. Implica ter informação (analítica) sobre a fig. 2.3 da tese.
+
+
+
+
+#Run simulation
+
+- Simular turbina (Parametros: velocidade de vento, intensidade de turbulencia, distancia a downstream turbina)
+	- Criar .bts usando o TurbSim
+		- Find+Replace template do turbsim (build/turbosim_input.inp), substitui parametros
+		- executar "turbsim64.exe build/turbosim_input.ino
+		- guardar output em build/tubsim_input.bts
+	- Correr o FAST
+		- Copiar template de input do fast para "buld/fast_input.fst"
+		- correr simulação
+	-Aplicar wake model
+		- Correr parkmodel()
+		- correr turbulence model // TODO
+		- Output é velocidade de vento e intesidade de turbolencia
+
+
+- Tempalte input do TurbSim "src/templates/turbosim_input.inp"
+- Template input do FAST "src/templates/fast-input.fst"
+
+

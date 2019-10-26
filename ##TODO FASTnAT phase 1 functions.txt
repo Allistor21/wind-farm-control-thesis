@@ -1,0 +1,111 @@
+function [outData,outList] = turbineSim(meanWS,TI,TMax,controlModel)
+	is there TurbSimFile_U*valor*?
+	if so, 
+		copia turbSimFile.inp, muda o seu nome turbSimFile_U*valor*
+		generateTurbSim(meanWS,TI,TMax) DONE
+	end
+	writeInflowWindFile(meanWS,TI,inflowwind_Work)
+	runFast(controlModel,TMax) DONE
+end
+
+function [T1outData,T2outData,T3outData,outList] = FAST_3AT(meanWS,TI,downstreamDistance,firstControlModel, otherControlModel,wakeModelType) DONE
+	[T1outData,outList] = turbineSim(meanWS,TI,firstControlModel)
+	[meanWS,TI] = wakeModel(T1outData,outList,downstreamDistance,wakeModelType)
+
+	[T2outData,outList] = turbineSim(meanWS,TI,otherControlModel)
+	[meanWS,TI] = wakeModel(T2outData,outList,downstreamDistance,wakeModelType)
+
+	[T3outData,outList] = turbineSim(meanWS,TI,otherControlModel)
+end
+
+function [meanWS,TI] = wakeModel(outData,outList,downstreamDistance,wakeModelType)JATA caRALHO
+	if wakeModelType = "ParkCrespo"
+		meanWS = parkModel(outData,outList,downstreamDistance) DONE
+		TI = crespoModel(outData,outList,downstreamDistance) DONE
+	elseif wakeModelType = "outroModelo"
+		[meanWS,TI] = aplicar esse modelo(outData,outList,downstreamDistance)
+	elseif blafnasrovn
+	end
+end
+
+function generateTurbSim(meanWS,TI,TMax) 
+	escreve no turbSimFile_U*valor*.inp os tres inputs
+	chama o executavel do TurbSim
+
+end	
+
+function writeInflowWindFile(meanWS,TI,inflowWind_Work)
+	cria string que é o nome do ficheiro .bts
+	find + replace no inflowWind_Work (usar função func replace string da net)
+
+end
+
+function [WTCanalysis,WFCanalysis,difanalysis] = analyseFAST3AT(WTC_FAST3AToutput,WFC_FAST3AToutput,outList)
+	[WTC_FAST3AToutput,outList] = combineLoads(WTC_FAST3AToutput,outList)
+	[WFC_FAST3AToutput,outList] = combineLoads(WFC_FAST3AToutput,outList)
+
+	outputArray = vetor com todos os outputs relevantes (já combinados)
+
+	for i in outputArray
+		matrix = analyseOutput(outputArray(i),WTC_FAST3AToutput,outList)
+		matrix2 = analyseOutput(outputArray(i),WFC_FAST3AToutput,outList)
+		matrix3 = compareOutput(matrix,matrix2)
+
+		WTCanalysis.update
+		WFCanalysis.update
+		difanalysis.update
+	end
+end
+
+function analysisMatrix = analyseOutput(output,FAST3AToutput,outList)
+	initialize analysisMatrix (primeira linha)
+	for cada elemento de FAST3AToutput
+		mean = mean(output)
+		SD = sd(output)
+		update analysisMatrix
+	end
+end
+
+function analysisMatrix = compareOutput(WFCmatrix,WTCmatrix)
+	subtrai a cada número de WFCmatrix o respetivo WTCmatrix
+end
+
+function [] = plotFAST3AT(outputArray,WTC_FAST3AToutput,WFC_FAST3AT,outList)
+	[WTC_FAST3AToutput,outList] = combineLoads(WTC_FAST3AToutput,outList)
+	[WFC_FAST3AToutput,outList] = combineLoads(WFC_FAST3AToutput,outList)
+
+	for output em outputArray
+		definir figura
+		definir props da figura
+		for 3 turbinas
+		plot(output,time) das 3 turbinas para WTC numa subfigure
+		plot(output, time) das 3 turbina para WFC noutra subfigure
+		define eixos e merdas? talvez fora deste ciclo?
+		end
+	end
+
+end
+
+function [] = combineLoads(OutData,OutList)
+	define matriz com strings, com os nomes das variáveis importantes
+	nessa matriz, poe na terceia linha os novos nomes da outlist
+
+	para as loads 'yae bearing' e 'towerLoads'
+		encontra o número das colunas a combinar
+		copia para outra variável
+		inverte as colunas para linhas
+		rssq(essa coisa)
+		inverte essa coisa
+		substitui as duas colunas por esta nova (efetivamente tirando uma coluna à outdata)
+		substitui na outList os nomes das variáveis pelo nome combinado
+
+	end cycle
+
+end
+
+function newFAST3AToutput = filterOnsetFAST3AT(time,FAST3AToutput)
+
+	for turbina in FAST3AToutput
+		elimina todas as linhas de outData da turbina i de 0 até time
+	end
+end

@@ -1,0 +1,74 @@
+##TODO FASTnAT phase 2 functions
+
+-----------------------------------Phase 2-I------------------------------------------------------------------------------
+
+function matrixUvsTI_theta# = FASTPitchSweep(TETA,[UmeanInput],[TIInpunt])
+
+    initializar matrixUvsTI_theta e pitchInput(TETA)
+
+    for Umean in [UmeanInput]
+        calcular omega, tal que o TSR seja o ótimo para Umean JÁ NAO É PRECISO
+        write in elastoDyn_Work esse omega (inspirado na turbineSim) JA NAO É PRECISO
+
+        for TI in [TIInpunt]
+            outData = turbineSim(meanWS,TI,TMax,controlModel)
+            guardar outData num cell array
+
+        end
+
+    end
+
+    guardar TETA em matrixUvsTI_theta
+    guardar vetores dos input U e TI em matrixUvsTI_theta
+    guardar cell array em matrixUvsTI_theta.
+end
+
+function matrixUvsTI_theta# = processSweep(matrixUvsTI_theta#)
+
+    for matrix in matrixUvsTI_theta
+        apply filterOnset to power
+        calculate mean and SD de power
+        guarda na matrixUvsTI_theta
+    end
+
+end
+
+-----------------------------------Phase 2-II------------------------------------------------------------------------------
+
+
+function [pitchSettings,deltaP,deltaL] = FASTnATOptimiser(N,U,TI)
+
+    calculate all incoming velocities Ui,TIi on all N turbines
+    (U1,TI1) = (U,TI)
+    for i = 2:N
+        (Ui,TIi) = wakeModel(Ui-1,CTi-1,TI) ----> implies changing wakeModel function, so it does not require outData as input
+
+    construct deltaP and deltaL functions
+    deltaP = ( sum(power(thetai,Ui,TIi)) - sum(power(theta=0,Ui,TIi)) ) / sum(power(theta=0,Ui,TIi))
+    deltaL = ( sum(load(thetai,Ui,TIi)) - sum(load(theta=0,Ui,TIi)) ) / sum(load(theta=0,Ui,TIi))
+
+    construct final objective function
+    example: f = 1/deltaP + deltaL
+
+    apply fmincon, output outputs
+
+end
+
+
+ sweepFitObjStruct = FASTSweepSurfFitting(outputArray,fitType)
+
+    for each workspace (for each pitch)
+        apply SweepUvsTIProcess
+
+        for each output in outputArray
+            fit surface to output, save in sweepFitObjStruct (lines are pitch, columns are outputs)
+
+ end
+
+sweepCoeffsFitObjStruct = FASTSweepCoeffsCurveFitting(sweepFitObjStruct,fitType)
+
+    for each column in sweepFitObjStruct
+        turn fitObjects of column into matrix (lines are pitch, columns are coeffs) 
+        fit a curve to each coeff (each column), save fit to sweepCoeffsFitObjStruct
+
+end

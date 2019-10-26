@@ -1,0 +1,9 @@
+##TODO FASTnAT results: To do list over what plots and pictures I should produce, to serve as results,
+
+FASTnAT single turbine performance evaluation
+
+- comparar resultados de simular 2 turbinas em linha com pitch control, aos resultados da tese do gebraad (da parte de avaliar actuation methods), para ver se é concordante
+- comparar simulação com controlo de gerador & pitch da DISCON desligado, com uma que o tem ligado. A fim de perceber o impacto que desligar o
+controlador do gerador tem, devido àquele erro em que o angulo de ataque oscilava bué
+- mostrar um graph de Power vs (UvsTI), e comentar que as simulações estão a devolver o esperado
+
