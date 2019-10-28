@@ -2,8 +2,7 @@ function TIout = crespoHernandezModel(X,Ct,TIinf)
 %% crespoHernandezModel
 % This function applies the Crespo-Hernandez wake model, to estimate the
 % turbulence intensity of a turbine's wake at a X downstream distance. Note
-% that X is the multiplier of the turbine's diameter. So, if the downstream
-% distance to apply the model is 7D, X is 7.
+% that X is the multiplier of the turbine's diameter.
 %%
 
 %Initialise variables.

@@ -22,7 +22,7 @@ U = 8;
 TI = 6;
 Xn = ones(1,N).*7;
 TMax = 600;
-wakeModelType = 'parkCrespo';
+wakeModelType = 'jensenCrespo';
 pitchs = zeros(1,N);
 
 

@@ -1,9 +1,14 @@
-function [newSweepStruct,newOutList] = FASTSweepUvsTIProcess(sweepStruct,outputArray,outList)
+function [newSweepStruct,newOutList] = FASTSweepUvsTIProcess(sweepStruct,outputArray,outList,timeFilter)
 % FASTSweepUvsTIProcess - Description
 % Function that processes the result of a FASTSweepUvsTI, acessing its result
 % matrixes, applies a time filter, and calculates the mean&SD of the desired
 % outputs in outputArray. 
 %%
+
+%If no time filter value is supplied, it is 20 seconds.
+if nargin < 4
+    timeFilter = 20;
+end
 
 %Initialise variables.
 newSweepStruct = sweepStruct;
@@ -23,7 +28,7 @@ for i = 1:s(1)
 
         %Process the result matrix, and substitute it in the new sweepSctruct
         %by the analysis matrix that results from outDataProcess,
-        [newSweepStruct.matrixesUvsTI{i,j},newOutList] = outDataProcess(outputArray,sweepStruct.matrixesUvsTI{i,j},outList,sweepStruct.UArray(i));
+        [newSweepStruct.matrixesUvsTI{i,j},newOutList] = outDataProcess(outputArray,sweepStruct.matrixesUvsTI{i,j},outList,timeFilter);
         
     end
 end

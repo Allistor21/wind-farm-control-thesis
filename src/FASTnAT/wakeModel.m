@@ -5,7 +5,7 @@ function [meanWS,TI] = wakeModel(wakeModelType,X,Ct,Uinf,TIinf)
 %%
 
 %If statement to choose the functions for a given wake model.
-if strcmp(wakeModelType,'parkCrespo')
+if strcmp(wakeModelType,'jensenCrespo')
     meanWS = parkModel(X,Ct,Uinf);
 	TI = crespoHernandezModel(X,Ct,TIinf);
 end
