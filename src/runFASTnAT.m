@@ -20,11 +20,10 @@ global pitchInput TMax
 N = 10;
 U = 8;
 TI = 6;
-Xn = ones(1,N).*7;
+Xn = 7;
 TMax = 600;
 wakeModelType = 'jensenCrespo';
 pitchs = zeros(1,N);
-
 
 % FAST10AT = FASTnAT(N,pitchs,U,TI,Xn,TMax,wakeModelType);
 

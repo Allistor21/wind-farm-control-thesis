@@ -1,9 +1,10 @@
 function FASTnAToutput = FASTnAT(N,pitchSettings,Uinf,TIinf,X,TMax,wakeModelType)
 %% FASTnAT
-% Function that simulates the FASTnAT scenario, i.e "n" aligned turbines in
+% Function that simulates the FASTnAT scenario, i.e "N" aligned turbines in
 % a wind farm, with free-stream wind speed "Uinf", free-stream turbulence
 % intensity "TIinf", distance between turbines "X"*D, with simulation time
-% "TMax". Uses FAST simulation tool, embedded in functions.
+% "TMax". Uses FAST simulation tool, embedded in functions. Applies a wake
+% model of type "wakeModelType" in between each simulation.
 %%
 
 %FAST only publishes the OutList variable (critical for findLineNumber
@@ -20,7 +21,7 @@ pitchInput = zeros(1,3);
 WS = Uinf;
 TI = TIinf;
 disp('%-----------------------------------------------------------------------------------------------------');
-disp(['                       Starting simulation of ' num2str(N) ' aligned turbines...                    ']);
+disp(['                        Starting simulation of ' num2str(N) ' aligned turbines...                     ']);
 disp('%-----------------------------------------------------------------------------------------------------');
 for i = 1:N
     %Save Wind Speed and Turb. Intensity of current iteration.
@@ -38,24 +39,19 @@ for i = 1:N
         FASTnAToutput.turbineData{i} = outData;
         
         %Turbine simulated sucessfully, apply wake model at X*D distance.
-        xx = X(i);
+        xx = X;
     catch ME
         %Save error message on output variable.
         FASTnAToutput.turbineData(i) = {ME.message};
 
         %Because outdata is not updated, apply wake model at 2*X*D,
-        try
-            xx = X(i) + X(i-1);
-        catch
-            xx = 2*X(i);
-        end
-        xx = X(i) + X(i-1);
+        xx = 2*X;
     end
     
     %Apply wake model.
     n = findLineNumber('RtAeroCt',OutList);
     Ct = mean(outData(:,n));
-    [WS,TI] = wakeModel(wakeModelType,xx,Ct,Uinf,TIinf);
+    [WS,TI] = wakeModel(wakeModelType,Ct,WS,X,Uinf,TIinf);
 end
 
 disp('%-----------------------------------------------------------------------------------------------------');
