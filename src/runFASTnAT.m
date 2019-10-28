@@ -17,7 +17,7 @@ cd build
 
 global pitchInput TMax
 
-N = 10;
+N = 2;
 U = 8;
 TI = 6;
 Xn = 7;

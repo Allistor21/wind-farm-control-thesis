@@ -13,22 +13,8 @@ Uinf = 8;
 obj = 1;
 
 
-% [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,obj);
+[optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,obj);
 
-% N = [5 10];
-% obj = [1 2 3];
-% optimiserArr = cell(3,1);
-% deltaPArr = zeros(3,1);
-% deltaLArr = zeros(3,1);
-% 
-% for j = 1:2
-%     for i = 1:3
-%         [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N(j),U,TI,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,obj(i));
-% 
-%         optimiserArr{i} = optimiserOut;
-%         deltaPArr(i) = deltaP;
-%         deltaLArr(i) = deltaL;
-%     end
-% end
+
 
 elapsedTime = toc;
