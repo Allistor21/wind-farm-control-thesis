@@ -47,8 +47,6 @@ optimiserOutput.pitchSettings = fmincon(objFun,x0,A,b,Aeq,beq,lb,ub,con);
 disp('--------------------------------------------------------------------------------------------------------------------')
 disp('------------------------------------------ Processing results.... --------------------------------------------------')
 disp('--------------------------------------------------------------------------------------------------------------------')
-U = zeros(1,N); U(1) = Uinf;
-TI = zeros(1,N); TI(1) = TIinf;
 for i = 2:N
     funCt = @(theta) fitFun(coeffsArrayCt,theta,optimiserOutput.turbineU(i-1),optimiserOutput.turbineTI(i-1));
     [optimiserOutput.turbineU(i),optimiserOutput.turbineTI(i)] = wakeModel(wakeModelType,funCt(optimiserOutput.pitchSettings(i-1)),optimiserOutput.turbineU(i-1),X,Uinf,TIinf);
@@ -56,12 +54,12 @@ end
 
 %Calculate the difference it made to apply the result pitch settings onto the turbines, and output it.
 z = zeros(1,N);
-deltaP  = (maxPower(optimiserOutput.pitchSettings,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - maxPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt))/maxPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt);
-deltaL  = (minLoads(optimiserOutput.pitchSettings,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - minLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt))/minLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt);
+deltaP  = 100 * (maxPower(optimiserOutput.pitchSettings,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - maxPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt))/maxPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt);
+deltaL  = 100 * (minLoads(optimiserOutput.pitchSettings,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - minLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt))/minLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt);
 
 %Calculate the power & load on each individual turbine, and output it.
 for i = 1:N
-    optimiserOutput.turbinePower(i) = fitFun(coeffsStruct.coeffsFitObjMatrix(:,1),optimiserOutput.pitchSettings(i),optimiserOutput.turbineU(i),optimiserOutput.turbineTI(i))
+    optimiserOutput.turbinePower(i) = fitFun(coeffsStruct.coeffsFitObjMatrix(:,1),optimiserOutput.pitchSettings(i),optimiserOutput.turbineU(i),optimiserOutput.turbineTI(i));
     optimiserOutput.turbineLoads(i) = fitFun(coeffsStruct.coeffsFitObjMatrix(:,2),optimiserOutput.pitchSettings(i),optimiserOutput.turbineU(i),optimiserOutput.turbineTI(i));
 end
 
