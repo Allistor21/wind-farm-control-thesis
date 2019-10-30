@@ -10,7 +10,7 @@ TIinf = 6;
 wakeModelType = 'jensenCrespo';
 X = 7;
 Uinf = 8;
-obj = 2;
+obj = 3;
 
 
 [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,obj)

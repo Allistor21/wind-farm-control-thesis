@@ -21,7 +21,7 @@ end
 
 [X, Y, Z] = prepareSurfaceData(treatedStruct3.UArray, treatedStruct3.TIArray, z);
 
-fitType = 'poly31';
+fitType = 'poly51';
 
 sft3 = fit([X,Y],Z,fitType);
 

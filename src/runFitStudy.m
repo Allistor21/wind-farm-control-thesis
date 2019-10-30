@@ -11,7 +11,7 @@ outputArray = {'Power','CombRootMc1','RtAeroCt'};
 
 %For now, this fit type cannot be changed, it is hardcoded in optimisation
 %functions.
-fitType = 'poly31';
+fitType = 'poly71';
 
 %Run sweep surfaces fitting.
 sweepFitObjStruct = FASTSweepSurfFitting(pitchArray,outputArray,fitType);
