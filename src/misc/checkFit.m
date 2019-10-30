@@ -52,9 +52,14 @@ for p = 1:length(pitchs)
         mat = nan(length(sweepStruct.UArray),length(turbs));
 
         for f = 1:length(sweepStruct.UArray)
-            mat(f,1) = fitFun(coeffsFitObjArray1,pitchs(p),sweepStruct.UArray(f),turbs(t));
-            mat(f,2) = fitFun(coeffsFitObjArray2,pitchs(p),sweepStruct.UArray(f),turbs(t));
-            mat(f,3) = fitFun(coeffsFitObjArrayCt,pitchs(p),sweepStruct.UArray(f),turbs(t));
+            
+            if isnan(sweepStruct.UArray(f))
+                continue
+            else
+                mat(f,1) = fitFun31(coeffsFitObjArray1,pitchs(p),sweepStruct.UArray(f),turbs(t));
+                mat(f,2) = fitFun31(coeffsFitObjArray2,pitchs(p),sweepStruct.UArray(f),turbs(t));
+                mat(f,3) = fitFun31(coeffsFitObjArrayCt,pitchs(p),sweepStruct.UArray(f),turbs(t));
+            end
         end
 
         fitAux(t) = {mat};
@@ -92,7 +97,7 @@ for p = 1:length(pitchs)
 
         end
 
-        legend('FAST TI=8','FAST TI=12','FAST TI=16','FAST TI=20','fit TI=8','fit TI=12','fit TI=16','fit TI=20')
+        legend('FAST TI=8','fit TI=8','FAST TI=12','fit TI=12','FAST TI=16','fit TI=16','FAST TI=20','fit TI=20')
         legend('boxoff');
 
     end
