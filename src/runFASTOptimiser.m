@@ -12,17 +12,23 @@ Uinf = 8;
 TIinf = 6;
 X = 5;
 wakeModelType = 'jensenCrespo';
-objs = (1:1:3);
+objs = [1 2 3];
+
+
+structGebraad = struct('resultArray',{cell(1,length(objs))},'deltaPArray',zeros(1,length(objs)),'deltaLArray',zeros(1,length(objs)));
 
 for i = 1:3
     [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(i))
+    structGebraad.resultArray{i} = optimiserOut;
+    structGebraad.deltaPArray(i) = deltaP;
+    structGebraad.deltaLArray(i) = deltaL;
 end
 
 %------------------------------
 
 N = 5;
 Uinf = 8;
-TIinf = 10;
+TIinf = 6;
 X = 5;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
@@ -39,8 +45,8 @@ for i = 1:length(vecX)
     for j = 1:length(objs)
         [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,vecX(i),wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         structX.resultArray{i,j} = optimiserOut;
-        structX.deltaPArray{i,j} = deltaP;
-        structX.deltaLArray{i,j} = deltaL;
+        structX.deltaPArray(i,j) = deltaP;
+        structX.deltaLArray(i,j) = deltaL;
     end   
 end
 
@@ -51,8 +57,8 @@ for i = 1:length(vecN)
     for j = 1:length(objs)
         [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(vecN(i),Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         structX.resultArray{i,j} = optimiserOut;
-        structX.deltaPArray{i,j} = deltaP;
-        structX.deltaLArray{i,j} = deltaL;
+        structX.deltaPArray(i,j) = deltaP;
+        structX.deltaLArray(i,j) = deltaL;
     end   
 end
 
@@ -63,8 +69,8 @@ for i = 1:length(vecU)
     for j = 1:length(objs)
         [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,vecU(i),TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         structX.resultArray{i,j} = optimiserOut;
-        structX.deltaPArray{i,j} = deltaP;
-        structX.deltaLArray{i,j} = deltaL;
+        structX.deltaPArray(i,j) = deltaP;
+        structX.deltaLArray(i,j) = deltaL;
     end   
 end
 
@@ -75,8 +81,8 @@ for i = 1:length(vecTI)
     for j = 1:length(objs)
         [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,vecTI(i),X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         structX.resultArray{i,j} = optimiserOut;
-        structX.deltaPArray{i,j} = deltaP;
-        structX.deltaLArray{i,j} = deltaL;
+        structX.deltaPArray(i,j) = deltaP;
+        structX.deltaLArray(i,j) = deltaL;
     end   
 end
 
