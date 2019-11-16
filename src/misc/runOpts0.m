@@ -15,9 +15,9 @@ X = 5;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 
-vecX = [3 5 7 9 11];
+vecX = [5 8 11];
 vecN = [2 5 10];
-vecU = [6 7 8 9 10 11];
+vecU = [6 8 10];
 vecTI = [6 10 14];
 
 

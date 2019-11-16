@@ -1,11 +1,17 @@
-function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective)
+function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective,weight)
 %% FASTnATOptimiser
 % This function utilises function fmincon, from Optimisation toolbox, to optimise pitch settings in a FASTnAT scenario,
 % composed of N aligned turbines, with the objective of minimising loads, while maximising power (defined by variable objFun).
 % Takes as input the free-stream conditions Uinf and TIinf (wind velocity & turbulence intensity in percentage), the distance between
 % each turbine X, as multiple of the diameter. Must be supplied with a structure with curve fits for the surface coefficients,
 % obtained by running a fit study, and also an array for a fit sutdy output for the thrust coefficient.
+% The supplied weight is the relativ importance of maximising power, and must be a number between 0 and 1.
 %%
+
+%If no weight is given, it will be a nan value.
+if nargin < 9
+    weight = nan(1);
+end
 
 %Initialise variables.
 optimiserOutput = struct('turbineNumber',(1:1:N),'turbineU',zeros(1,N),'turbineTI',zeros(1,N),'pitchSettings',zeros(1,N),'turbinePower',zeros(1,N),'turbineLoads',zeros(1,N));
@@ -32,6 +38,13 @@ elseif objective == 2 % Minimise loads on wind farm.
     objFun = @(theta) minLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt);
 elseif objective == 3 % Minimise loads, while maximising power.
     objFun = @(theta) ( minLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)/minLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - ( maxPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt)/maxPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
+elseif objective == 4 % Minimise loads, while maximising power, wih a specified weight.
+    if isnan(weight) | weight < 0 | weight > 1
+        ME = MException('MyError:weightNotValid','Weight must be a number between 0 and 1.');
+        throw(ME);
+    else
+        objFun = @(theta) (1 - weight)*( minLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)/minLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - weight*( maxPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt)/maxPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
+    end
 end
 
 %----------------------------------------------------------------------------------------------------------------------------
