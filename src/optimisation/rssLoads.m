@@ -1,11 +1,11 @@
-function sumLoad = minLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayLoad,coeffsArrayCt)
+function sums = rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayLoad,coeffsArrayCt)
 %% minLoad
 % Cost function for FASTnATOptimiser, with the objective of minimising a load.
 % Calculates the root-sum-square of a load for all N turbines.
 %%
 
 %Initilise variables.
-sumLoad = 0;
+sums = 0;
 U = Uinf; TI = TIinf;
 loadArray = zeros(N,1);
 
@@ -19,6 +19,6 @@ for i = 1:N
 end
 
 %Determine the rssq of loads.
-sumLoad = rssq(loadArray);
+sums = rssq(loadArray);
 
 end
