@@ -38,7 +38,7 @@ end
 
 %Calcular com fits
 
-load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_5.mat
+load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_51.mat
 
 pitchCellPoli = cell(1,length(pitchs));
 

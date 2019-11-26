@@ -11,7 +11,7 @@ load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\
 N = 5;
 Uinf = 8;
 TIinf = 6;
-X = 5;
+X = 7;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 
@@ -26,9 +26,9 @@ structTI = struct('TIArray',vecTI,'resultArray',{cell(length(vecTI),length(objs)
 for i = 1:length(vecTI)
     for j = 1:length(objs)
         [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,vecTI(i),X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
-        structX.resultArray{i,j} = optimiserOut;
-        structX.deltaPArray(i,j) = deltaP;
-        structX.deltaLArray(i,j) = deltaL;
+        structTI.resultArray{i,j} = optimiserOut;
+        structTI.deltaPArray(i,j) = deltaP;
+        structTI.deltaLArray(i,j) = deltaL;
     end   
 end
 

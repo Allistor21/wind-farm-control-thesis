@@ -1,16 +1,29 @@
 %
+% 
+% 
+% A = [];
+% b = [];
+% Aeq = [];
+% beq = [];
+% lb = [0];
+% ub = [5];
+% 
+% x0 = [1];
+% 
+% %fun = sweepFitObjStruct.fitObjMatrix{1,1};
+% fun = coeffsFitObjArray1{1};
+% 
+% x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub)
 
+clear all
 
-A = [];
-b = [];
-Aeq = [];
-beq = [];
-lb = [0];
-ub = [5];
+load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_51.mat
 
-x0 = [1];
+N = 5;
+Uinf = 8;
+TIinf = 6;
+X = 5;
+wakeModelType = 'jensenCrespo';
+objs = 1;
 
-%fun = sweepFitObjStruct.fitObjMatrix{1,1};
-fun = coeffsFitObjArray1{1};
-
-x = fmincon(fun,x0,A,b,Aeq,beq,lb,ub)
+[gebraadOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs);

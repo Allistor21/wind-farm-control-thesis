@@ -55,7 +55,7 @@ disp('-------------------------------------------- Running fmincon.... ---------
 disp('--------------------------------------------------------------------------------------------------------------------')
 optimiserOutput.pitchSettings = fmincon(objFun,x0,A,b,Aeq,beq,lb,ub,con);
 
-%Update optimiserOutput, for outputting. Also calculate the wind conditions if there was no wind farm control on, which is necessary
+%Update optimiserOutput with the wind conditions if there was no wind farm control on, which is also necessary
 %to calculate the power in that situation.
 disp('--------------------------------------------------------------------------------------------------------------------')
 disp('------------------------------------------ Processing results.... --------------------------------------------------')
