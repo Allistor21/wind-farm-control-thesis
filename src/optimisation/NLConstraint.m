@@ -16,8 +16,8 @@ conU = zeros(N,1); conTI = zeros(N,1);
 %Loop for each turbine, calculate the constraint.
 %Constraints where formulated in the form "theta-A*(U,TI)+B<=0".
 for i = 1:N
-    conU(i) = theta(i) - U + 1;
-    conTI(i) = theta(i) - 0.25*TI;
+    conU(i) = theta(i) - (U/2) - 1;
+    conTI(i) = theta(i) + 0.107*TI - 4.64;
 
     Ct = fitFun(coeffsArrayCt,theta(i),U,TI);
     [U,TI] = wakeModel(wakeModelType,Ct,U,X,Uinf,TIinf);

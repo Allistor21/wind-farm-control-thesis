@@ -4,10 +4,10 @@ clear all
 
 cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation'
 
-N = 5;
-Uinf = 8;
-TIinf = 6;
-X = 5;
+N=5;
+Uinf=8;
+TIinf=6;
+X=5;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 
@@ -16,14 +16,14 @@ vecN = [2 5 10];
 vecU = [6 8 10];
 vecTI = [6 10 14];
 
-clrs = { 'b-','r-','k-';'b--','r--','k--' };
-clrs2 = { 'b-^','b-o','b-d';'r-^','r-o','r-d';'k-^','k-o','k-d' };
+clrs = { 'b-*','r-*','k-*';'b--x','r--x','k--x' };
+clrs2 = { 'b-^','b:o','b--d';'r-^','r:o','r--d';'k-^','k:o','k--d' };
 
 pitchSize = [0 0 0.7 0.7];
 quantSize = [0 0 0.5 0.7];
-fontSize = 22;
+fontSize=22;
 lineWidth = 1.8;
-markerSize = 15;
+markerSize = 9;
 
 %-----------------------------------------------------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ set(gcf,'color','w'); %Set background color
 set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
 set(gca, 'FontSize', fontSize);
 
-ylabel('\beta [\o]');
+ylabel(['\beta [' char(176) ']']);
 %ylim([0 5]);
 
 xlabel('Turbine number');
@@ -62,7 +62,7 @@ end
 
 hold off
 
-legend('X = 5; obj = maxPower','X = 8; obj = maxPower','X = 11; obj = maxPower','X = 5; obj = minLoads','X = 8; obj = minLoads','X = 11; obj = minLoads','X = 5; obj = mixed','X = 8; obj = mixed','X = 11; obj = mixed');
+legend('X=5; obj=1','X=8; obj=1','X=11; obj=1','X=5; obj=2','X=8; obj=2','X=11; obj=2','X=5; obj=3','X=8; obj=3','X=11; obj=3');
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
@@ -83,20 +83,20 @@ hold on
 for i = 1:length(objs)
     
     yyaxis left
-    ylabel('\Delta P (%)');
+    ylabel('\Delta P [%]');
     y = curStruct.deltaPArray(:,i);
     plot(aux,y,clrs{1,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
     
     yyaxis right
-    ylabel('\Delta L (%)');
+    ylabel('\Delta L [%]');
     y = curStruct.deltaLArray(:,i);
     plot(aux,y,clrs{2,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
 end
 
 hold off
-legend('\Delta P, obj = maxPower','\Delta P, obj = minLoads','\Delta P, obj = mixed','\Delta L, obj = maxPower','\Delta L, obj = minLoads','\Delta L, obj = mixed')
+legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','\Delta L, obj=2','\Delta L, obj=3')
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
@@ -122,7 +122,7 @@ set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
 set(gca, 'FontSize', fontSize);
 
 
-ylabel('\beta [\o]');
+ylabel(['\beta [' char(176) ']']);
 %ylim([0 5]);
 
 xlabel('Turbine number');
@@ -141,7 +141,7 @@ end
 
 hold off
 
-legend('U = 6; obj = maxPower','U = 8; obj = maxPower','U = 10; obj = maxPower','U = 6; obj = minLoads','U = 8; obj = minLoads','U = 10; obj = minLoads','U = 6; obj = mixed','U = 8; obj = mixed','U = 10; obj = mixed');
+legend('U=6; obj=1','U=8; obj=1','U=10; obj=1','U=6; obj=2','U=8; obj=2','U=10; obj=2','U=6; obj=3','U=8; obj=3','U=10; obj=3');
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
@@ -162,13 +162,13 @@ hold on
 for i = 1:length(objs)
     
     yyaxis left
-    ylabel('\Delta P (%)');
+    ylabel('\Delta P [%]');
     y = curStruct.deltaPArray(:,i);
     plot(aux,y,clrs{1,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
     
     yyaxis right
-    ylabel('\Delta L (%)');
+    ylabel('\Delta L [%]');
     y = curStruct.deltaLArray(:,i);
     plot(aux,y,clrs{2,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
@@ -176,7 +176,7 @@ end
 
 hold off
 
-legend('\Delta P, obj = maxPower','\Delta P, obj = minLoads','\Delta P, obj = mixed','\Delta L, obj = maxPower','\Delta L, obj = minLoads','\Delta L, obj = mixed')
+legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','\Delta L, obj=2','\Delta L, obj=3')
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
@@ -201,7 +201,7 @@ set(gcf,'color','w'); %Set background color
 set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
 set(gca, 'FontSize', fontSize);
 
-ylabel('\beta [\o]');
+ylabel(['\beta [' char(176) ']']);
 %ylim([0 5]);
 
 xlabel('Turbine number');
@@ -220,7 +220,7 @@ end
 
 hold off
 
-legend('TI = 6; obj = maxPower','TI = 10; obj = maxPower','TI = 14; obj = maxPower','TI = 6; obj = minLoads','TI = 10; obj = minLoads','TI = 14; obj = minLoads','TI = 6; obj = mixed','TI = 10; obj = mixed','TI = 14; obj = mixed');
+legend('TI=6; obj=1','TI=10; obj=1','TI=14; obj=1','TI=6; obj=2','TI=10; obj=2','TI=14; obj=2','TI=6; obj=3','TI=10; obj=3','TI=14; obj=3');
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
@@ -241,20 +241,20 @@ hold on
 for i = 1:length(objs)
     
     yyaxis left
-    ylabel('\Delta P (%)');
+    ylabel('\Delta P [%]');
     y = curStruct.deltaPArray(:,i);
     plot(aux,y,clrs{1,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
     
     yyaxis right
-    ylabel('\Delta L (%)');
+    ylabel('\Delta L [%]');
     y = curStruct.deltaLArray(:,i);
     plot(aux,y,clrs{2,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
 end
 
 hold off
-legend('\Delta P, obj = maxPower','\Delta P, obj = minLoads','\Delta P, obj = mixed','\Delta L, obj = maxPower','\Delta L, obj = minLoads','\Delta L, obj = mixed')
+legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','\Delta L, obj=2','\Delta L, obj=3')
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
@@ -279,7 +279,7 @@ set(gcf,'color','w'); %Set background color
 set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
 set(gca, 'FontSize', fontSize);
 
-ylabel('\beta [\o]');
+ylabel(['\beta [' char(176) ']']);
 %ylim([0 5]);
 
 xlabel('Turbine number');
@@ -298,7 +298,7 @@ end
 
 hold off
 
-legend('N = 2; obj = maxPower','N = 5; obj = maxPower','N = 10; obj = maxPower','N = 2; obj = minLoads','N = 5; obj = minLoads','N = 10; obj = minLoads','N = 2; obj = mixed','N = 5; obj = mixed','N = 10; obj = mixed');
+legend('N=2; obj=1','N=5; obj=1','N=10; obj=1','N=2; obj=2','N=5; obj=2','N=10; obj=2','N=2; obj=3','N=5; obj=3','N=10; obj=3');
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
@@ -319,20 +319,20 @@ hold on
 for i = 1:length(objs)
     
     yyaxis left
-    ylabel('\Delta P (%)');
+    ylabel('\Delta P [%]');
     y = curStruct.deltaPArray(:,i);
     plot(aux,y,clrs{1,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
     
     yyaxis right
-    ylabel('\Delta L (%)');
+    ylabel('\Delta L [%]');
     y = curStruct.deltaLArray(:,i);
     plot(aux,y,clrs{2,i},'LineWidth', lineWidth, 'MarkerSize',markerSize);
     set(gca,'ycolor','k') 
 end
 
 hold off
-legend('\Delta P, obj = maxPower','\Delta P, obj = minLoads','\Delta P, obj = mixed','\Delta L, obj = maxPower','\Delta L, obj = minLoads','\Delta L, obj = mixed')
+legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','\Delta L, obj=2','\Delta L, obj=3')
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 

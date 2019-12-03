@@ -1,26 +1,33 @@
-% %script to plot constraint
-% close all
-% 
-% 
-% x = pitchArray;
-% y = (6:2:20);
-% z = errMap;
-% 
-% [X, Y, Z] = prepareSurfaceData(x, y, z);
-% 
-% fitType = 'poly31';
-% 
-% sft3 = fit([X,Y],Z,fitType);
-% 
-% figure
-% plot(sft3,[X,Y],Z)
+%script to plot constraint
+close all
+clear all
 
-U = FAST10AT.turbineU;
-TI = FAST10AT.turbineTI;
+load('C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\errorMapRun3.mat');
 
-for i = 1:10
-    valores(i) = fitFun(coeffsFitObjArrayCt,0,U(i),TI(i));
-end
+x = pitchArray;
+y = (6:2:20);
+z = errMap;
+
+[X, Y, Z] = prepareSurfaceData(x, y, z);
+
+fitType = 'linearinterp';
+
+sft3 = fit([X,Y],Z,fitType);
+
+figure
+
+plot(sft3,[X,Y],Z)
+ylabel('Turbulence intensity [%]');
+xlabel('Pitch Setting');
+zlabel('Wind Speed [m/s]');
+
+
+% U = FAST10AT.turbineU;
+% TI = FAST10AT.turbineTI;
+% 
+% for i = 1:10
+%     valores(i) = fitFun(coeffsFitObjArrayCt,0,U(i),TI(i));
+% end
 
 
 
