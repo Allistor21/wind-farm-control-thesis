@@ -1,4 +1,4 @@
-function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective,weight)
+function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,x0,objective,weight)
 %% FASTnATOptimiser
 % This function utilises function fmincon, from Optimisation toolbox, to optimise pitch settings in a FASTnAT scenario,
 % composed of N aligned turbines, with the objective of minimising loads, while maximising power (defined by variable objFun).
@@ -9,7 +9,7 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
 %%
 
 %If no weight is given, it will be a nan value.
-if nargin < 9
+if nargin < 10
     weight = nan(1);
 end
 
@@ -26,7 +26,7 @@ Aeq = [];
 beq = [];
 lb = zeros(1,N);
 ub = ones(1,N).*5;
-x0 = zeros(1,N);
+%x0 = zeros(1,N);
 con = @(theta) NLConstraint(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayCt);
 
 %--------------------------------------------------Define objective function-------------------------------------------------
