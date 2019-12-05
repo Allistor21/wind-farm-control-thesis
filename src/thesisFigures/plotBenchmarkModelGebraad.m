@@ -1,5 +1,4 @@
-%Sript to plot the figure 4.2.1, comparison of two-turbine setup simulation
-%scenario between FASTnAT and literature, Gebraad
+%Sript to plot comparison of two-turbine setup simulation scenario between FASTnAT and literature, Gebraad
 close all
 clear all
 cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\modelValidation\windFarm'
