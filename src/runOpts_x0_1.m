@@ -1,33 +1,52 @@
-%run optimisations 
-
+%run optimisation, and vary inicial point
 clear all
 
-tic
-
+cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\build'
 load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_51.mat
+
+diary log__x0_1
 
 %------------------------------
 
-N = 3;
+N = 5;
 Uinf = 8;
-TIinf = 6;
+TIinf = 8;
 X = 7;
 wakeModelType = 'jensenCrespo';
 
-vec_X = [5 8 11];
-objs = (1:1:3);
-x0 = ones(1,N)*5;
+%------------------------------
 
+objs = [1 2 3];
+alg = 'interior-point';
+options = optimoptions(@fmincon,'Algorithm',alg,'Display','iter','PlotFcn','optimplotfval')
 
-structX = struct('XArray',vec_X,'resultArray',{cell(length(vec_X),length(objs))},'deltaPArray',zeros(length(vec_X),length(objs)),'deltaLArray',zeros(length(vec_X),length(objs)));
+x0 = ones(1,N)*4.99;
 
-for i = 1:length(vec_X)
-    for j = 1:length(objs)
-        [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,vec_X(i),wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,x0,objs(j))
-        structX.resultArray{i,j} = optimiserOut;
-        structX.deltaPArray(i,j) = deltaP;
-        structX.deltaLArray(i,j) = deltaL;
-    end   
+%------------------------------
+
+tic
+struct_x0 = struct('x0',x0,'resultArray',{cell(1,length(objs))},'deltaPArray',zeros(1,length(objs)),'deltaLArray',zeros(1,length(objs)));
+duration = zeros(1,length(objs));
+for j = 1:length(objs)
+    [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,x0,objs(j),options)
+
+    if j == 1
+        duration(j) = toc;
+    else
+        duration(j) = toc;
+        for i = 1:(j-1)
+            duration(j) = duration(j) - duration(i);
+        end
+    end
+
+    struct_x0.resultArray{j} = optimiserOut;
+    struct_x0.deltaPArray(j) = deltaP;
+    struct_x0.deltaLArray(j) = deltaL;
+
+    name = ['x0_1__obj_' num2str(objs(j)) '.png'];
+    saveas(gcf,name)
 end
+
+diary off
 
 elapsedTime = toc;

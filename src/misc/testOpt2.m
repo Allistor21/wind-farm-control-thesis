@@ -1,19 +1,23 @@
 %Script to test optimisation functions.
 
-%theta = sym('theta',[1 3])
-N = 4;
-U = [8,6.5,5.8,5];
-TI = [10,12.2,15.5,16];
+diary myDiaryFile.txt
 
-A = [];
-b = [];
-Aeq = [];
-beq = [];
-lb = [0,0,0,0];
-ub = [5,5,5,5];
+clear all
 
-x0 = [1,1,1,1];
+load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_51.mat
 
-func = @(theta) deltaVar(coeffsFitObjArray2,N,theta,U,TI);
+N = 1;
+Uinf = 8;
+TIinf = 6;
+X = 7;
+wakeModelType = 'jensenCrespo';
+objs = 1;
+x0 = ones(1,N)*0.1;
+alg = 'trust-region-reflective';
 
-x = fmincon(func,x0,A,b,Aeq,beq,lb,ub);
+options = optimoptions(@fmincon,'Algorithm',alg,'Display','iter','PlotFcn','optimplotfval')
+
+[optOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,x0,objs,options);
+
+
+diary off
