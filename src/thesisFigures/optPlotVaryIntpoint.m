@@ -1,23 +1,23 @@
-%Script to plot the results from studying the effect of the fmincon algorithm on the optimisation.
+%Script to plot the results from studying the effect of the initial point.
 close all
 clear all
 
 cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation'
 
-algs = [0 1 2];
+intPoints = [0 1 2 3];
 
 pitchSize = [0 0 0.5 0.7];
 fontSize = 18;
 lineWidth = 1.8;
 markerSize = 8;
 
-clrs = { 'b-*','b:o','b--d';'r-*','r:o','r--d';'k-*','k:o','k--d' };
-clrs2 = { 'b-o','r-o','k-o';'b--*','r--*','k--*' };
-clrs3 = { 'b-*','r-*','k-*' };
+clrs = { 'b-*','b:o','b--d';'r-*','r:o','r--d';'k-*','k:o','k--d';'c-*','c:o','c--d' };
+clrs2 = { 'b-o','r-o','k-o','c-o';'b--*','r--*','k--*','c--*' };
+clrs3 = { 'b-*','r-*','k-*','c-*' };
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
-%Figure to show beta vs turbine number, for all algorithms & objectives.
+%Figure to show beta vs turbine number, for all x0 & objectives.
 
 figure('units','normalized','position',pitchSize)
 
@@ -28,22 +28,22 @@ set(gca, 'FontSize', fontSize);
 ylabel(['\beta [' char(176) ']']);
 xlabel('Turbine number');
 
-legend('Location','southoutside','NumColumns',3);
+legend('Location','southoutside','NumColumns',4);
 legend('boxoff');
 
-for i = 1:length(algs)
-    wrkspace = ['opt_Algorithm_' num2str(algs(i)) '.mat'];
+for i = 1:length(intPoints)
+    wrkspace = ['opt_x0_' num2str(intPoints(i)) '.mat'];
     load(wrkspace)
 
     hold on
 
     for j = 1:length(objs)
-        curStruct = struct_Algorithm.resultArray{j};
+        curStruct = struct_x0.resultArray{j};
 
         x = curStruct.turbineNumber;
         y = curStruct.pitchSettings;
 
-        lgdEntry = ['Alg.=' struct_Algorithm.Algorithm ', obj=' num2str(objs(j))];
+        lgdEntry = ['x_{0}^{' num2str(intPoints(i)) '}, obj=' num2str(objs(j))];
 
         plot(x,y,clrs{i,j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry);
 
@@ -55,11 +55,11 @@ for i = 1:length(algs)
     xticks(curStruct.turbineNumber);
 end
 
-print('opt_varyAlg_betaVsTurbine','-depsc');
+print('opt_varyIntpoint_betaVsTurbine','-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
-%Figure to show turbine power vs turbine number, for all algorithms & objectives.
+%Figure to show turbine power vs turbine number, for all x0 & objectives.
 
 figure('units','normalized','position',pitchSize)
 
@@ -70,22 +70,22 @@ set(gca, 'FontSize', fontSize);
 ylabel('Average power [kW]')
 xlabel('Turbine number');
 
-legend('Location','southoutside','NumColumns',3);
+legend('Location','southoutside','NumColumns',4);
 legend('boxoff');
 
-for i = 1:length(algs)
-    wrkspace = ['opt_Algorithm_' num2str(algs(i)) '.mat'];
+for i = 1:length(intPoints)
+    wrkspace = ['opt_x0_' num2str(intPoints(i)) '.mat'];
     load(wrkspace)
 
     hold on
 
     for j = 1:length(objs)
-        curStruct = struct_Algorithm.resultArray{j};
+        curStruct = struct_x0.resultArray{j};
 
         x = curStruct.turbineNumber;
         y = curStruct.turbinePower;
 
-        lgdEntry = ['Alg.=' struct_Algorithm.Algorithm ', obj=' num2str(objs(j))];
+        lgdEntry = ['x_{0}^{' num2str(intPoints(i)) '}, obj=' num2str(objs(j))];
 
         plot(x,y,clrs{i,j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry);
 
@@ -97,11 +97,11 @@ for i = 1:length(algs)
     xticks(curStruct.turbineNumber);
 end
 
-print('opt_varyAlg_powerVsTurbine','-depsc');
+print('opt_varyIntpoint_powerVsTurbine','-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
-%Figure to show turbine loads vs turbine number, for all algorithms & objectives.
+%Figure to show turbine loads vs turbine number, for all x0 & objectives.
 
 figure('units','normalized','position',pitchSize)
 
@@ -112,22 +112,22 @@ set(gca, 'FontSize', fontSize);
 ylabel('\sigma_{BM} [Nm]')
 xlabel('Turbine number');
 
-legend('Location','southoutside','NumColumns',3);
+legend('Location','southoutside','NumColumns',4);
 legend('boxoff');
 
-for i = 1:length(algs)
-    wrkspace = ['opt_Algorithm_' num2str(algs(i)) '.mat'];
+for i = 1:length(intPoints)
+    wrkspace = ['opt_x0_' num2str(intPoints(i)) '.mat'];
     load(wrkspace)
 
     hold on
 
     for j = 1:length(objs)
-        curStruct = struct_Algorithm.resultArray{j};
+        curStruct = struct_x0.resultArray{j};
 
         x = curStruct.turbineNumber;
         y = curStruct.turbineLoads;
 
-        lgdEntry = ['Alg.=' struct_Algorithm.Algorithm ', obj=' num2str(objs(j))];
+        lgdEntry = ['x_{0}^{' num2str(intPoints(i)) '}, obj=' num2str(objs(j))];
 
         plot(x,y,clrs{i,j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry);
 
@@ -139,7 +139,7 @@ for i = 1:length(algs)
     xticks(curStruct.turbineNumber);
 end
 
-print('opt_varyAlg_loadsVsTurbine','-depsc');
+print('opt_varyIntpoint_loadsVsTurbine','-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
@@ -151,15 +151,15 @@ set(gcf,'color','w'); %Set background color
 set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
 set(gca, 'FontSize', fontSize);
 
-legend('Location','southoutside','NumColumns',2);
+legend('Location','southoutside','NumColumns',4);
 legend('boxoff');
 
 x = objs;
 
 hold on
 
-for i = 1:length(algs)
-    wrkspace = ['opt_Algorithm_' num2str(algs(i)) '.mat'];
+for i = 1:length(intPoints)
+    wrkspace = ['opt_x0_' num2str(intPoints(i)) '.mat'];
     load(wrkspace)
 
     yyaxis left
@@ -167,8 +167,8 @@ for i = 1:length(algs)
     ylabel('\Delta P [%]');
     set(gca,'ycolor','k'); 
 
-    y = struct_Algorithm.deltaPArray;
-    lgdEntry = ['\Delta P [%], alg.=' struct_Algorithm.Algorithm ];
+    y = struct_x0.deltaPArray;
+    lgdEntry = ['\Delta P [%], x_{0}^{' num2str(intPoints(i)) '}' ];
     plot(x,y,clrs2{1,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry);
     legend('-DynamicLegend')
 
@@ -178,8 +178,8 @@ for i = 1:length(algs)
     set(gca,'ycolor','k'); 
     ylim([-0.95 -0.80]);
 
-    y = struct_Algorithm.deltaLArray;
-    lgdEntry = ['\Delta L [%], alg.=' struct_Algorithm.Algorithm ];
+    y = struct_x0.deltaLArray;
+    lgdEntry = ['\Delta L [%], x_{0}^{' num2str(intPoints(i)) '}' ];
     plot(x,y,clrs2{2,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry);
     legend('-DynamicLegend')
 
@@ -192,7 +192,7 @@ xticks(objs);
 xlabel('Optimisation objective')
 xticklabels({'Maximise power','Minimise loads','Mixed'});
 
-print('opt_varyAlg_deltaPVsAlg','-depsc');
+print('opt_varyIntpoint_deltaPVsAlg','-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
@@ -204,19 +204,19 @@ set(gcf,'color','w'); %Set background color
 set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
 set(gca, 'FontSize', fontSize);
 
-legend('Location','southoutside','NumColumns',3);
+legend('Location','southoutside','NumColumns',4);
 legend('boxoff');
 
 x = objs;
 
 hold on
 
-for i = 1:length(algs)
-    wrkspace = ['opt_Algorithm_' num2str(algs(i)) '.mat'];
+for i = 1:length(intPoints)
+    wrkspace = ['opt_x0_' num2str(intPoints(i)) '.mat'];
     load(wrkspace)
 
     y = duration/3600;
-    lgdEntry = ['Alg.=' struct_Algorithm.Algorithm ];
+    lgdEntry = ['x_{0}^{' num2str(intPoints(i)) '}'];
     plot(x,y,clrs3{i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry);
     legend('-DynamicLegend')
 
@@ -231,4 +231,4 @@ xticks(objs);
 xlabel('Optimisation objective')
 xticklabels({'Maximise power','Minimise loads','Mixed'});
 
-print('opt_varyAlg_elapsedTime','-depsc');
+print('opt_varyIntpoint_elapsedTime','-depsc');

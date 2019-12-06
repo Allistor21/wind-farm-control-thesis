@@ -17,8 +17,6 @@ wakeModelType = 'jensenCrespo';
 %------------------------------
 
 objs = [1 2 3];
-alg = 'interior-point';
-options = optimoptions(@fmincon,'Algorithm',alg,'Display','iter','PlotFcn','optimplotfval')
 
 x0 = ones(1,N)*0.1;
 
@@ -28,7 +26,7 @@ tic
 struct_x0 = struct('x0',x0,'resultArray',{cell(1,length(objs))},'deltaPArray',zeros(1,length(objs)),'deltaLArray',zeros(1,length(objs)));
 duration = zeros(1,length(objs));
 for j = 1:length(objs)
-    [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,x0,objs(j),options)
+    [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,x0,objs(j))
 
     if j == 1
         duration(j) = toc;

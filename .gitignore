@@ -3,3 +3,4 @@ NREL5MW_AxialCase/build/*
 NREL5MW_AxialCase/data/turbSimFiles/*
 results/*
 build/*
+build_archive/*
