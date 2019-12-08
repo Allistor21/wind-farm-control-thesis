@@ -28,7 +28,7 @@ lb = zeros(1,N);
 ub = ones(1,N).*5;
 x0 = ones(1,N)*2.5;
 con = @(theta) NLConstraint(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayCt);
-options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','PlotFcn','optimplotfval','FunctionTolerance',1e-8)
+options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','PlotFcn','optimplotfval','FiniteDifferenceType','central','UseParallel',1)
 
 %--------------------------------------------------Define objective function-------------------------------------------------
 

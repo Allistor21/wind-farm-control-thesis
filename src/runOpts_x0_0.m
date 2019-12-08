@@ -18,24 +18,15 @@ wakeModelType = 'jensenCrespo';
 
 objs = [1 2 3];
 
-x0 = ones(1,N)*0.1;
-
 %------------------------------
 
 tic
-struct_x0 = struct('x0',x0,'resultArray',{cell(1,length(objs))},'deltaPArray',zeros(1,length(objs)),'deltaLArray',zeros(1,length(objs)));
+struct_test = struct('resultArray',{cell(1,length(objs))},'deltaPArray',zeros(1,length(objs)),'deltaLArray',zeros(1,length(objs)));
 duration = zeros(1,length(objs));
 for j = 1:length(objs)
-    [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,x0,objs(j))
-
-    if j == 1
-        duration(j) = toc;
-    else
-        duration(j) = toc;
-        for i = 1:(j-1)
-            duration(j) = duration(j) - duration(i);
-        end
-    end
+    tStart = tic;
+    [optimiserOut,deltaP,deltaL] = FASTnATOptimiser_alt(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
+    duration(j) = toc(tStart);
 
     struct_x0.resultArray{j} = optimiserOut;
     struct_x0.deltaPArray(j) = deltaP;

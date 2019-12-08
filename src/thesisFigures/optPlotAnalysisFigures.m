@@ -4,6 +4,8 @@ clear all
 
 cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation'
 
+runNumber = 2;
+
 N=5;
 Uinf=8;
 TIinf=6;
@@ -31,7 +33,7 @@ markerSize = 9;
 %-------------------------------------------------------X sensitivity---------------------------------------------------------
 
 
-load('C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\optX.mat')
+load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryX_' num2str(runNumber) '.mat'])
 curStruct = structX;
 aux = vecX;
 
@@ -66,7 +68,7 @@ legend('X=5; obj=1','X=8; obj=1','X=11; obj=1','X=5; obj=2','X=8; obj=2','X=11; 
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
-print('optXpitch','-depsc');
+print(['optXpitch_' num2str(runNumber)],'-depsc');
 
 %Code for quatification figure
 
@@ -100,7 +102,7 @@ legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
-print('optXdeltas','-depsc');
+print(['optXdeltas_' num2str(runNumber)],'-depsc');
 
 
 %-----------------------------------------------------------------------------------------------------------------------------
@@ -109,7 +111,7 @@ print('optXdeltas','-depsc');
 %-------------------------------------------------------U sensitivity---------------------------------------------------------
 
 
-load('C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\optU.mat')
+load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryU_' num2str(runNumber) '.mat'])
 curStruct = structU;
 aux = vecU;
 
@@ -145,7 +147,7 @@ legend('U=6; obj=1','U=8; obj=1','U=10; obj=1','U=6; obj=2','U=8; obj=2','U=10; 
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
-print('optUpitch','-depsc');
+print(['optUpitch_' num2str(runNumber)],'-depsc');
 
 %Code for quatification figure
 
@@ -180,7 +182,7 @@ legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
-print('optUdeltas','-depsc');
+print(['optUdeltas_' num2str(runNumber)],'-depsc');
 
 
 %-----------------------------------------------------------------------------------------------------------------------------
@@ -189,7 +191,7 @@ print('optUdeltas','-depsc');
 %-------------------------------------------------------TI sensitivity---------------------------------------------------------
 
 
-load('C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\optTI.mat')
+load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryTI_' num2str(runNumber) '.mat'])
 curStruct = structTI;
 aux = vecTI;
 
@@ -224,7 +226,7 @@ legend('TI=6; obj=1','TI=10; obj=1','TI=14; obj=1','TI=6; obj=2','TI=10; obj=2',
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
-print('optTIpitch','-depsc');
+print(['optTIpitch_' num2str(runNumber)],'-depsc');
 
 %Code for quatification figure
 
@@ -258,7 +260,7 @@ legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
-print('optTIdeltas','-depsc');
+print(['optTIdeltas_' num2str(runNumber)],'-depsc');
 
 
 %-----------------------------------------------------------------------------------------------------------------------------
@@ -267,7 +269,7 @@ print('optTIdeltas','-depsc');
 %-------------------------------------------------------N sensitivity---------------------------------------------------------
 
 
-load('C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\optN.mat')
+load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryN_' num2str(runNumber) '.mat'])
 curStruct = structN;
 aux = vecN;
 
@@ -302,7 +304,7 @@ legend('N=2; obj=1','N=5; obj=1','N=10; obj=1','N=2; obj=2','N=5; obj=2','N=10; 
 legend('Location','southoutside','NumColumns',3);
 legend('boxoff');
 
-print('optNpitch','-depsc');
+print(['optNpitch_' num2str(runNumber)],'-depsc');
 
 %Code for quatification figure
 
@@ -336,7 +338,7 @@ legend('\Delta P, obj=1','\Delta P, obj=2','\Delta P, obj=3','\Delta L, obj=1','
 legend('Location','southoutside','NumColumns',2);
 legend('boxoff');
 
-print('optNdeltas','-depsc');
+print(['optNdeltas_' num2str(runNumber)],'-depsc');
 
 
 

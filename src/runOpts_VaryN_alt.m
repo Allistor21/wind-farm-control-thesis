@@ -4,7 +4,7 @@ clear all
 cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\build'
 load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\data\fit_data\fitStudy_51.mat
 
-diary log__VaryN
+diary log__VaryN_alt
 
 %------------------------------
 
@@ -30,14 +30,14 @@ duration = zeros(length(vecN),length(objs));
 for i = 1:length(vecN)
     for j = 1:length(objs)
         tStart = tic;
-        [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(vecN(i),Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
+        [optimiserOut,deltaP,deltaL] = FASTnATOptimiser_alt(vecN(i),Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         duration(i,j) = toc(tStart);
 
         structN.resultArray{i,j} = optimiserOut;
         structN.deltaPArray(i,j) = deltaP;
         structN.deltaLArray(i,j) = deltaL;
 
-        name = ['VaryN__N_' num2str(vecN(i)) '_obj_' num2str(objs(j)) '.png'];
+        name = ['VaryN__N_' num2str(vecN(i)) '_obj_' num2str(objs(j)) '_alt.png'];
         saveas(gcf,name)
     end   
 end

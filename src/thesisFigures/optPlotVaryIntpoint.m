@@ -5,6 +5,7 @@ clear all
 cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation'
 
 intPoints = [0 1 2 3];
+runName = 2;
 
 pitchSize = [0 0 0.5 0.7];
 fontSize = 18;
@@ -55,7 +56,8 @@ for i = 1:length(intPoints)
     xticks(curStruct.turbineNumber);
 end
 
-print('opt_varyIntpoint_betaVsTurbine','-depsc');
+filename = ['opt_varyIntpoint_betaVsTurbine_' num2str(runName)];
+print(filename,'-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
@@ -97,7 +99,8 @@ for i = 1:length(intPoints)
     xticks(curStruct.turbineNumber);
 end
 
-print('opt_varyIntpoint_powerVsTurbine','-depsc');
+filename = ['opt_varyIntpoint_powerVsTurbine_' num2str(runName)];
+print(filename,'-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
@@ -139,7 +142,8 @@ for i = 1:length(intPoints)
     xticks(curStruct.turbineNumber);
 end
 
-print('opt_varyIntpoint_loadsVsTurbine','-depsc');
+filename = ['opt_varyIntpoint_loadsVsTurbine_' num2str(runName)];
+print(filename,'-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
@@ -165,7 +169,8 @@ for i = 1:length(intPoints)
     yyaxis left
 
     ylabel('\Delta P [%]');
-    set(gca,'ycolor','k'); 
+    set(gca,'ycolor','k');
+    ylim([6.5 7]); 
 
     y = struct_x0.deltaPArray;
     lgdEntry = ['\Delta P [%], x_{0}^{' num2str(intPoints(i)) '}' ];
@@ -176,7 +181,7 @@ for i = 1:length(intPoints)
 
     ylabel('\Delta L [%]');
     set(gca,'ycolor','k'); 
-    ylim([-0.95 -0.80]);
+    %ylim([-0.95 -0.80]);
 
     y = struct_x0.deltaLArray;
     lgdEntry = ['\Delta L [%], x_{0}^{' num2str(intPoints(i)) '}' ];
@@ -192,7 +197,8 @@ xticks(objs);
 xlabel('Optimisation objective')
 xticklabels({'Maximise power','Minimise loads','Mixed'});
 
-print('opt_varyIntpoint_deltaPVsAlg','-depsc');
+filename = ['opt_varyIntpoint_deltaPVsAlg_' num2str(runName)];
+print(filename,'-depsc');
 
 %----------------------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------------------
@@ -231,4 +237,5 @@ xticks(objs);
 xlabel('Optimisation objective')
 xticklabels({'Maximise power','Minimise loads','Mixed'});
 
-print('opt_varyIntpoint_elapsedTime','-depsc');
+filename = ['opt_varyIntpoint_elapsedTime_' num2str(runName)];
+print(filename,'-depsc');
