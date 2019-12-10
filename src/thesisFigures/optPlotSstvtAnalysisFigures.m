@@ -26,14 +26,6 @@ prmtrList = {'N','Uinf','TIinf','X'};
 clrs = { 'b-*','r-*','k-*';'b--x','r--x','k--x' };
 clrs2 = { 'b-^','b:o','b--d';'r-^','r:o','r--d';'k-^','k:o','k--d' }; %TENHO DE CONSTRUIR AS CORES DINAMICAMENTE TAMBEM SHIT
 
-clrs2 = cell(N,length(objs));
-
-for i = 1:N
-    for j = 1:length(objs)
-        clrs2{i,j} = 
-    end
-end
-
 figSize1 = [0 0 0.7 0.7];
 quantSize = [0 0 0.5 0.7];
 fontSize=22;
@@ -66,12 +58,12 @@ for f = 1:length(prmtrList)
     ylim([0 5]);
     xlabel('Turbine number');
 
-    legend('Location','southoutside','NumColumns',length(domain));
+    legend('Location','southoutside','NumColumns',3);
     legend('boxoff');
     
     hold on
     
-    for i = 1:length(domain)
+    for i = 1:(1:2:5)
         for j = 1:length(objs)
             x = struct_sstvt.resultArray{i,j}.turbineNumber;
             y = struct_sstvt.resultArray{i,j}.pitchSettings;
