@@ -269,7 +269,7 @@ print(['optTIdeltas_' num2str(runNumber)],'-depsc');
 %-------------------------------------------------------N sensitivity---------------------------------------------------------
 
 
-load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryN_' num2str(runNumber) '.mat'])
+%load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryN_' num2str(runNumber) '.mat'])
 curStruct = structN;
 aux = vecN;
 

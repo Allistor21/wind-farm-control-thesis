@@ -1,4 +1,4 @@
-function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective,weight)
+function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(tag,N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective,weight)
 %% FASTnATOptimiser
 % This function utilises function fmincon, from Optimisation toolbox, to optimise pitch settings in a FASTnAT scenario,
 % composed of N aligned turbines, with the objective of minimising loads, while maximising power (defined by variable objFun).
@@ -6,10 +6,12 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
 % each turbine X, as multiple of the diameter. Must be supplied with a structure with curve fits for the surface coefficients,
 % obtained by running a fit study, and also an array for a fit study output for the thrust coefficient.
 % The supplied weight is the relative importance of maximising power, and must be a number between 0 and 1.
+%
+% 1: Added 'tag' variable, to distinguish the monitoring figures with a tag.
 %%
 
 %If no weight is given, it will be a nan value.
-if nargin < 9
+if nargin < 10
     weight = nan(1);
 end
 
@@ -28,7 +30,8 @@ lb = zeros(1,N);
 ub = ones(1,N).*5;
 x0 = ones(1,N)*2.5;
 con = @(theta) NLConstraint(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayCt);
-options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','PlotFcn','optimplotfval','FunctionTolerance',1e-8)
+%options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','PlotFcn','optimplotfval','FiniteDifferenceType','central','UseParallel',1,'MaxFunctionEvaluations',250*N,'MaxIterations',1000)
+options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','FiniteDifferenceType','central','UseParallel',1,'MaxFunctionEvaluations',250*N,'MaxIterations',1000)
 
 %--------------------------------------------------Define objective function-------------------------------------------------
 
@@ -51,6 +54,9 @@ elseif objective == 4 % Minimise loads, while maximising power, wih a specified 
         optimiserOutput.objective = name;
         objFun = @(theta) (1-weight)*(( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - weight*(( sumPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) ) / sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
     end
+else
+    ME = MException('MyError:objectiveNotValid','Must select a valid objective (1, 2 3 or 4)');
+    throw(ME);
 end
 
 %----------------------------------------------------------------------------------------------------------------------------
@@ -61,6 +67,13 @@ disp('--------------------------------------------------------------------------
 
 %Call solver.
 [optimiserOutput.pitchSettings,fval,exitflag,output] = fmincon(objFun,x0,A,b,Aeq,beq,lb,ub,con,options)
+
+% %Save monitoring plot.
+% name = [tag '__N_' num2str(N) '_Uinf_' num2str(Uinf) '_TIinf_' num2str(TIinf) '_X_' num2str(X) '_obj_' num2str(objective)  '.png'];
+% saveas(gcf,name)
+
+%Call solver a second time, starting at the last solver's final point.
+[optimiserOutput.pitchSettings,fval,exitflag,output] = fmincon(objFun,optimiserOutput.pitchSettings,A,b,Aeq,beq,lb,ub,con,options)
 
 disp('--------------------------------------------------------------------------------------------------------------------')
 disp('------------------------------------------ Processing results.... --------------------------------------------------')
