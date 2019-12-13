@@ -67,7 +67,7 @@ for i = 1:length(sstvtArray)
         elseif strcmp(prmtr,'X')
             [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(tag,N,Uinf,TIinf,sstvtArray(i),wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         end
-        duration(i,j) = toc(tStart);
+        duration(i,j) = toc(tStart)
 
         struct_sstvt.resultArray{i,j} = optimiserOut;
         struct_sstvt.deltaPArray(i,j) = deltaP;

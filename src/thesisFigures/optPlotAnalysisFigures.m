@@ -104,6 +104,241 @@ legend('boxoff');
 
 print(['optXdeltas_' num2str(runNumber)],'-depsc');
 
+%Code for sum(power) & RSS loads vs parameter, including no control
+
+z = zeros(1,N);
+
+for i = 1:length(aux)
+    deltaP = @(theta) sumPower(theta,N,Uinf,TIinf,aux(i),wakeModelType,coeffsFitObjArray1,coeffsFitObjArrayCt);
+    deltaL = @(theta) rssLoads(theta,N,Uinf,TIinf,aux(i),wakeModelType,coeffsFitObjArray2,coeffsFitObjArrayCt);
+
+    deltaPArray(i) = deltaP(z);
+    deltaLArray(i) = deltaL(z);
+end
+
+figure('units','normalized','position',pitchSize)
+
+set(gcf,'color','w'); %Set background color
+set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
+set(gca, 'FontSize', fontSize);
+xlabel('Downstream distance X [1/D m]');
+legend('Location','southoutside','NumColumns',4);
+legend('boxoff');
+
+clrs4 = {'c-','c--'};
+
+hold on
+
+yyaxis left
+
+set(gca,'ycolor','k') 
+ylabel('Sum of avg power, [kW]');
+lgdEntry = 'Sum of power, base';
+plot(aux,deltaPArray,clrs4{1},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+legend('-DynamicLegend')
+
+yyaxis right
+
+ylim([1500 1600])
+set(gca,'ycolor','k') 
+ylabel('rss loads [Nm]');
+lgdEntry = 'rss loads, base';
+plot(aux,deltaLArray,clrs4{2},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+legend('-DynamicLegend')
+
+load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryX_2.mat'])
+
+for j = 1:length(objs)
+    for i = 1:length(aux)
+        deltaP = @(theta) sumPower(theta,N,Uinf,TIinf,aux(i),wakeModelType,coeffsFitObjArray1,coeffsFitObjArrayCt);
+        deltaL = @(theta) rssLoads(theta,N,Uinf,TIinf,aux(i),wakeModelType,coeffsFitObjArray2,coeffsFitObjArrayCt);
+
+        deltaPArray(i,j) = deltaP(structX.resultArray{i,j}.pitchSettings);
+        deltaLArray(i,j) = deltaL(structX.resultArray{i,j}.pitchSettings);
+    end
+end
+
+clrs5 = {'b-*','r-*','k-*';'b--x','r--x','k--x'};
+
+for i = 1:length(objs)
+    
+    yyaxis left
+    lgdEntry = ['Sum of power,obj=' num2str(objs(i))];
+    plot(aux,deltaPArray(:,i),clrs5{1,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+    yyaxis right
+    lgdEntry = ['rss loads,obj=' num2str(objs(i))];
+    plot(aux,deltaLArray(:,i),clrs5{2,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+end
+
+hold off
+
+print(['optXobjFunc_' num2str(runNumber)],'-depsc');
+
+%Code for U & TI vs turbine number vs parameter
+
+windsize = [0 0 0.7 0.7]
+
+UArray(1) = Uinf; TIArray(1) = TIinf; CtArray(1) = fitFun(coeffsFitObjArrayCt,0,Uinf,TIinf);
+
+for i = 2:N
+    CtArray(i) = fitFun(coeffsFitObjArrayCt,0,UArray(i-1),TIArray(i-1));
+    [UArray(i),TIArray(i)] = wakeModel(wakeModelType,CtArray(i),UArray(i-1),5,Uinf,TIinf);
+end
+
+
+figure('units','normalized','position',windsize)
+
+set(gcf,'color','w'); %Set background color
+set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
+set(gca, 'FontSize', fontSize);
+xlabel('Turbine Number');
+legend('Location','southoutside','NumColumns',4);
+legend('boxoff');
+
+x = (1:1:5);
+
+hold on
+
+yyaxis left
+ylabel('Wind speed [m/s]')
+ylim([5 8]);
+set(gca,'ycolor','k') 
+plot(x,UArray,'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName','U,base')
+
+yyaxis right
+ylabel('Tubulence intensity [%]')
+ylim([6 18])
+set(gca,'ycolor','k') 
+plot(x,TIArray,'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName','TI,base')
+
+for i = 1:length(objs)
+    
+    yyaxis left
+    lgdEntry = ['U,obj=' num2str(objs(i))];
+    plot(x,structX.resultArray{1,i}.turbineU,clrs5{1,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+    yyaxis right
+    lgdEntry = ['TI,obj=' num2str(objs(i))];
+    plot(x,structX.resultArray{1,i}.turbineTI,clrs5{2,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+end
+
+hold off
+
+print(['optXUTI_P1' num2str(runNumber)],'-depsc');
+
+%---------------------
+
+
+UArray(1) = Uinf; TIArray(1) = TIinf; CtArray(1) = fitFun(coeffsFitObjArrayCt,0,Uinf,TIinf);
+
+for i = 2:N
+    CtArray(i) = fitFun(coeffsFitObjArrayCt,0,UArray(i-1),TIArray(i-1));
+    [UArray(i),TIArray(i)] = wakeModel(wakeModelType,CtArray(i),UArray(i-1),8,Uinf,TIinf);
+end
+
+
+figure('units','normalized','position',windsize)
+
+set(gcf,'color','w'); %Set background color
+set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
+set(gca, 'FontSize', fontSize);
+xlabel('Turbine number');
+legend('Location','southoutside','NumColumns',4);
+legend('boxoff');
+
+x = (1:1:5);
+
+hold on
+
+yyaxis left
+ylabel('Wind speed [m/s]')
+ylim([5 8]);
+set(gca,'ycolor','k') 
+plot(x,UArray,'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName','U,base')
+
+yyaxis right
+ylabel('Tubulence intensity [%]')
+ylim([6 18])
+set(gca,'ycolor','k') 
+plot(x,TIArray,'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName','TI,base')
+
+for i = 1:length(objs)
+    
+    yyaxis left
+    lgdEntry = ['U,obj=' num2str(objs(i))];
+    plot(x,structX.resultArray{2,i}.turbineU,clrs5{1,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+    yyaxis right
+    lgdEntry = ['TI,obj=' num2str(objs(i))];
+    plot(x,structX.resultArray{2,i}.turbineTI,clrs5{2,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+end
+
+hold off
+
+print(['optXUTI_P2' num2str(runNumber)],'-depsc');
+
+%-----------------------
+
+UArray(1) = Uinf; TIArray(1) = TIinf; CtArray(1) = fitFun(coeffsFitObjArrayCt,0,Uinf,TIinf);
+
+for i = 2:N
+    CtArray(i) = fitFun(coeffsFitObjArrayCt,0,UArray(i-1),TIArray(i-1));
+    [UArray(i),TIArray(i)] = wakeModel(wakeModelType,CtArray(i),UArray(i-1),11,Uinf,TIinf);
+end
+
+
+figure('units','normalized','position',windsize)
+
+set(gcf,'color','w'); %Set background color
+set(gca, 'FontName', 'Arial'); %Set font type and size of axis labels
+set(gca, 'FontSize', fontSize);
+xlabel('Turbine Number');
+legend('Location','southoutside','NumColumns',4);
+legend('boxoff');
+
+x = (1:1:5);
+
+hold on
+
+yyaxis left
+ylabel('Wind speed [m/s]')
+ylim([5 8]);
+set(gca,'ycolor','k') 
+plot(x,UArray,'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName','U,base')
+
+yyaxis right
+ylabel('Tubulence intensity [%]')
+ylim([6 18])
+set(gca,'ycolor','k') 
+plot(x,TIArray,'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName','TI,base')
+
+for i = 1:length(objs)
+    
+    yyaxis left
+    lgdEntry = ['U,obj=' num2str(objs(i))];
+    plot(x,structX.resultArray{3,i}.turbineU,clrs5{1,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+    yyaxis right
+    lgdEntry = ['TI,obj=' num2str(objs(i))];
+    plot(x,structX.resultArray{3,i}.turbineTI,clrs5{2,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+end
+
+hold off
+
+print(['optXUTI_P3' num2str(runNumber)],'-depsc');
 
 %-----------------------------------------------------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------------------------------------------------
@@ -269,7 +504,7 @@ print(['optTIdeltas_' num2str(runNumber)],'-depsc');
 %-------------------------------------------------------N sensitivity---------------------------------------------------------
 
 
-%load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryN_' num2str(runNumber) '.mat'])
+load(['C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\opt_VaryN_' num2str(runNumber) '.mat'])
 curStruct = structN;
 aux = vecN;
 
