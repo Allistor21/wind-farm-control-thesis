@@ -16,20 +16,13 @@ sft3 = fit([X,Y],Z,fitType);
 
 figure
 
+set(gcf,'color','w');
+set(gca, 'FontName', 'Arial');
+set(gca, 'FontSize', 22);
+
 plot(sft3,[X,Y],Z)
 ylabel('Turbulence intensity [%]');
-xlabel('Pitch Setting');
-zlabel('Wind Speed [m/s]');
-
-
-% U = FAST10AT.turbineU;
-% TI = FAST10AT.turbineTI;
-% 
-% for i = 1:10
-%     valores(i) = fitFun(coeffsFitObjArrayCt,0,U(i),TI(i));
-% end
-
-
-
+xlabel(['\beta [' char(176) ']']);
+zlabel('Wind speed [m/s]');
 
 

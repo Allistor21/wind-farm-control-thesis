@@ -29,7 +29,8 @@ vecX = [5 6 7 8 9];
 prmtrList = {'N','Uinf','TIinf','X'};
 
 clrs = { 'b-*','k-*','r-*';'b--x','k--x','r--x' };
-clrs2 = { 'b-^','b:o','b--d';'k-^','k:o','k--d';'k-^','k:o','k--d';'r-^','r:o','r--d';'r-^','r:o','r--d' };
+%clrs2 = { 'b-^','b:o','b--d';'k-^','k:o','k--d';'k-^','k:o','k--d';'r-^','r:o','r--d';'r-^','r:o','r--d' };
+clrs2 = { 'b-^','k-^','r-^';'b:o','k:o','r:o';'b:o','k:o','r:o';'b--d','k--d','r--d';'b--d','k--d','r--d' };
 
 clrs3 = { 'b-*','k-*','k-*','r-*','r-*';'b--x','k--x','k--x','r--x','r--x' };
 
@@ -37,8 +38,11 @@ figSize1 = [0 0 1100 700]; figOutSize1 = [0 0 0.6 0.8];
 figSize2 = [0 0 900 900]; figOutSize2 = [0 0 0.6 0.8];
 figSize3 = [0 0 0.85 0.9];figOutSize3 = [0 0 0.95 1];
 
-UTIylimU = [6 10];
-UTIylimTI = [4 20];
+UTIylimU = [0.5 1];
+UTIylimTI = [1 3.5];
+
+objFuncYlimP = [2000 16000];
+objFuncYlimL = [1000 8000];
 
 fontSize = 22;
 lineWidth = 1.8;
@@ -89,7 +93,7 @@ for f = 1:length(prmtrList)
     for i = (1:2:5)
         turbNN = length(struct_sstvt.resultArray{i,1}.turbineNumber);
         
-        UArray = zeros(turbNN,1); TIArray = zeros(turbNN,1);
+        UArray = zeros(turbNN,1); TIArray = zeros(turbNN,1); CtArray = zeros(turbNN,1);
         UArray(1) = struct_sstvt.resultArray{i,1}.turbineU(1);
         TIArray(1) = struct_sstvt.resultArray{i,1}.turbineTI(1);
         CtArray(1) = fitFun(coeffsFitObjArrayCt,0,UArray(1),TIArray(1));
@@ -125,34 +129,41 @@ for f = 1:length(prmtrList)
         ylabel('U_{\infty} [m/s]')
         ylim(UTIylimU);
         set(gca,'ycolor','k')
-        lgdEntry = 'U,No control';
-        plot(x,UArray,'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-        legend('-DynamicLegend')
 
         yyaxis right
 
         ylabel('TI_{\infty} [%]')
         ylim(UTIylimTI);
         set(gca,'ycolor','k') 
-        lgdEntry = 'TI,No control';
-        plot(x,TIArray,'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-        legend('-DynamicLegend')
 
         for j = 1:length(objs)
         
             yyaxis left
              
             lgdEntry = ['U,obj=' struct_sstvt.resultArray{i,j}.objective];
-            plot(x,struct_sstvt.resultArray{i,j}.turbineU,clrs{1,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+            plot(x,struct_sstvt.resultArray{i,j}.turbineU/UArray(1),clrs{1,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
             legend('-DynamicLegend')
 
             yyaxis right
 
             lgdEntry = ['TI,obj=' struct_sstvt.resultArray{i,j}.objective];
-            plot(x,struct_sstvt.resultArray{i,j}.turbineTI,clrs{2,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+            plot(x,struct_sstvt.resultArray{i,j}.turbineTI/TIArray(1),clrs{2,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
             legend('-DynamicLegend')
 
         end
+
+        yyaxis left
+        
+        lgdEntry = 'U,No control';
+        plot(x,UArray/UArray(1),'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        legend('-DynamicLegend')
+
+        yyaxis right
+
+        lgdEntry = 'TI,No control';
+        plot(x,TIArray/TIArray(1),'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        legend('-DynamicLegend')
+
 
         hold off
 
@@ -160,94 +171,6 @@ for f = 1:length(prmtrList)
 
 
     end
-
-    % %---------- Normalised wind conditions -------------------------------------------------------------------------------------
-
-    % figure('position',figSize3)
-
-    % set(gcf,'color','w');
-    % set(gca, 'FontName', 'Arial');
-    % set(gca, 'FontSize', fontSize);
-
-    % xlabel('Turbine number');
-
-    % legend('Location','southoutside','NumColumns',4);
-    % legend('boxoff');
-
-    % hold on
-
-    % yyaxis left
-    
-    % ylabel('U_{\infty} [m/s]')
-    % set(gca,'ycolor','k')
-
-    % yyaxis right
-
-    % ylabel('TI_{\infty} [%]')
-    % set(gca,'ycolor','k') 
-
-    % for i = (1:2:5)
-    %     auxArr = zeros(length(struct_sstvt.resultArray{i,1}.turbineNumber),1);
-
-    %     turbNN = length(struct_sstvt.resultArray{i,1}.turbineNumber);
-        
-    %     UArray = zeros(turbNN,1); TIArray = zeros(turbNN,1);
-    %     UArray(1) = struct_sstvt.resultArray{i,1}.turbineU(1);
-    %     TIArray(1) = struct_sstvt.resultArray{i,1}.turbineTI(1);
-    %     CtArray(1) = fitFun(coeffsFitObjArrayCt,0,UArray(1),TIArray(1));
-        
-    %     for t = 2:turbNN
-    %         if strcmp(struct_sstvt.parameter,'X')
-    %             [UArray(t),TIArray(t)] = wakeModel(wakeModelType,CtArray(t-1),UArray(t-1),struct_sstvt.analysisDomain(i),UArray(1),TIArray(1));
-    %         else
-    %             [UArray(t),TIArray(t)] = wakeModel(wakeModelType,CtArray(t-1),UArray(t-1),X,UArray(1),TIArray(1));
-    %         end
-
-    %         CtArray(t) = fitFun(coeffsFitObjArrayCt,0,UArray(t),TIArray(t));
-    %     end
-
-    %     x = struct_sstvt.resultArray{i,1}.turbineNumber;
-    %     xticks(struct_sstvt.resultArray{i,1}.turbineNumber);
-
-    %     yyaxis left
-
-    %     auxArr = UArray/struct_sstvt.resultArray{i,1}.turbineU(1);
-        
-    %     lgdEntry = 'U,No control';
-    %     plot(x,auxArr,clrs3{1,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-    %     legend('-DynamicLegend')
-    
-    %     yyaxis right
-
-    %     auxArr = TIArray/struct_sstvt.resultArray{i,1}.turbineTI(1);
-
-    %     lgdEntry = 'TI,No control';
-    %     plot(x,auxArr,clrs3{2,i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-    %     legend('-DynamicLegend')
-
-    %     for j = 1:length(objs)
-
-    %         yyaxis left
-
-    %         auxArr = struct_sstvt.resultArray{i,j}.turbineU/struct_sstvt.resultArray{i,1}.turbineU(1);
-             
-    %         lgdEntry = ['U,obj=' struct_sstvt.resultArray{i,j}.objective];
-    %         plot(x,auxArr,clrs2{i,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-    %         legend('-DynamicLegend')
-
-    %         yyaxis right
-
-    %         auxArr = struct_sstvt.resultArray{i,j}.turbineTI/struct_sstvt.resultArray{i,1}.turbineTI(1);
-
-    %         lgdEntry = ['TI,obj=' struct_sstvt.resultArray{i,j}.objective];
-    %         plot(x,auxArr,clrs2{i,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-    %         legend('-DynamicLegend')
-    %     end
-    % end
-
-    % hold off
-
-    % print(['opt_' tag '_normTurbineUTI_' num2str(runNumber)],'-depsc');
 
     %-------- Power & loads vs parameter ----------------------------------------------------------------------------------------
 
@@ -304,22 +227,6 @@ for f = 1:length(prmtrList)
 
     hold on
 
-    yyaxis left
-    
-    ylabel('Total avg. power [kW]')
-    set(gca,'ycolor','k')
-    lgdEntry = 'No control';
-    plot(x,baseDistrP,'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-    legend('-DynamicLegend')
-
-    yyaxis right
-
-    ylabel('RSSQ of BRBM [Nm]')
-    set(gca,'ycolor','k') 
-    lgdEntry = 'No control';
-    plot(x,baseDistrL,'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-    legend('-DynamicLegend')
-
     for j = 1:length(objs)
         
         yyaxis left
@@ -335,6 +242,24 @@ for f = 1:length(prmtrList)
         legend('-DynamicLegend')
 
     end
+
+    yyaxis left
+
+    ylabel('Total avg. power [kW]')
+    ylim(objFuncYlimP);
+    set(gca,'ycolor','k')
+    lgdEntry = 'No control';
+    plot(x,baseDistrP,'c-*','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
+
+    yyaxis right
+
+    ylabel('RSSQ of BRBM [Nm]')
+    ylim(objFuncYlimL);
+    set(gca,'ycolor','k') 
+    lgdEntry = 'No control';
+    plot(x,baseDistrL,'c--x','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+    legend('-DynamicLegend')
 
     hold off
 
@@ -376,15 +301,15 @@ for f = 1:length(prmtrList)
         yyaxis left
          
         lgdEntry = ['\Delta P,obj=' struct_sstvt.resultArray{i,j}.objective];
-        %plot(x,struct_sstvt.deltaPArray(:,j),clrs{1,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-        plot(x,optDeltaP(:,j),clrs{1,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        plot(x,struct_sstvt.deltaPArray(:,j),clrs{1,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        %plot(x,optDeltaP(:,j),clrs{1,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
         legend('-DynamicLegend')
 
         yyaxis right
 
         lgdEntry = ['\Delta L,obj=' struct_sstvt.resultArray{i,j}.objective];
-        %plot(x,struct_sstvt.deltaLArray(:,j),clrs{2,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-        plot(x,optDeltaL(:,j),clrs{2,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        plot(x,struct_sstvt.deltaLArray(:,j),clrs{2,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        %plot(x,optDeltaL(:,j),clrs{2,j},'LineWidth',lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
         legend('-DynamicLegend')
 
     end
