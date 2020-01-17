@@ -25,15 +25,8 @@ TMax = 600;
 wakeModelType = 'jensenCrespo';
 pitchs = zeros(1,N);
 
-% FAST10AT = FASTnAT(N,pitchs,U,TI,Xn,TMax,wakeModelType);
+FAST10AT = FASTnAT(N,pitchs,U,TI,Xn,TMax,wakeModelType);
 
-offset = (0:1:5);
-
-for i = 1:length(offset)
-    pitchs(1) = offset(i)
-    
-    FAST2ATArray{i} = FASTnAT(N,pitchs,U,TI,Xn,TMax,wakeModelType);
-end
 
 
 
