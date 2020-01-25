@@ -8,18 +8,18 @@ clear all
 prmtr = 'Uinf'
 
 %Define base conditions for sensitivity analysis.
-N = 6;
+N = 5;
 Uinf = 8;
-TIinf = 8;
-X = 7;
+TIinf = 6;
+X = 5;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 
 %Define domain for each parameter.
-vecN = [2 4 6 8 10];
-vecU = [6 7 8 9 10];
-vecTI = [4 6 8 10 12];
-vecX = [5 6 7 8 9];
+vecN = [3 5 7];
+vecU = [6 8 10];
+vecTI = [2 6 10];
+vecX = [5 7 9];
 
 %---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -59,13 +59,13 @@ for i = 1:length(sstvtArray)
 
         tStart = tic;
         if strcmp(prmtr,'N')
-            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(tag,sstvtArray(i),Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
+            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(sstvtArray(i),Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         elseif strcmp(prmtr,'Uinf')
-            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(tag,N,sstvtArray(i),TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
+            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,sstvtArray(i),TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         elseif strcmp(prmtr,'TIinf')
-            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(tag,N,Uinf,sstvtArray(i),X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
+            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,sstvtArray(i),X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         elseif strcmp(prmtr,'X')
-            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(tag,N,Uinf,TIinf,sstvtArray(i),wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
+            [optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,sstvtArray(i),wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,objs(j))
         end
         duration(i,j) = toc(tStart)
 

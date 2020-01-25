@@ -11,7 +11,7 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
 %%
 
 %If no weight is given, it will be a nan value.
-if nargin < 10
+if nargin < 9
     weight = nan(1);
 end
 

@@ -17,7 +17,7 @@ syms A;
 
 %Calculate axial induction factor, through actuator disk theory.
 % If the thrust coefficient is higher than 1,
-%a is returned empty. If statement limits induction factor  to 0.5,
+%a is returned empty. If statement limits induction factor to 0.5,
 if Ct >= 1
     a = 0.5;
 else

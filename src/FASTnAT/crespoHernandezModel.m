@@ -16,9 +16,16 @@ else
     a = double(solve([ 4*A*(1-A) == Ct , A <= 0.5 ],A));
 end
 
-%Apply Crespo-Hernandez model.
+%Apply Crespo-Hernandez model, both the near wake and far wake equations.
+
 TIinf = TIinf/100;
-dI = 0.73*(a^0.8325)*(TIinf^0.0325)*(X^(-0.32));
+
+if X < 3
+    dI = 0.725*a;
+else
+    dI = 0.73*(a^0.8325)*(TIinf^0.0325)*(X^(-0.32));
+end
+
 TIout = double(solve([ dI == sqrt((I^2 - TIinf^2)) , I >= 0 ],I))*100;
 
 end
