@@ -10,22 +10,22 @@ tic;
 %Change to case folder
 cd C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase
 
-rmdir build s
-copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\src\templates\* build
-addpath build
-cd build
+rmdir build2 s
+copyfile C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\src\templates\* build2
+addpath build2
+cd build2
 
 global pitchInput TMax
 
 N = 5;
-U = 8;
+U = 4;
 TI = 8;
-X = 3;
+X = 7;
 wakeModelType = 'jensenCrespo';
 pitchs = zeros(1,N);
 TMax = 300;
 
-X3out = FASTnAT(N,pitchs,U,TI,X,TMax,wakeModelType);
+U4out2 = FASTnAT(N,pitchs,U,TI,X,TMax,wakeModelType);
 
 
 

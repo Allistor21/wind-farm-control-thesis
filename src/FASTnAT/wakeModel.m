@@ -13,11 +13,6 @@ function [U,TI] = wakeModel(wakeModelType,Ct,V,X,Uinf,TIinf)
 %If statement to choose the functions for a given wake model.
 if strcmp(wakeModelType,'jensenCrespo')
 
-    %If statement to check if V is less than the cut-in speed.
-    if V < 3
-        Ct = 0;
-    end
-
     U = jensenModel(Ct,V,X,Uinf);
 	TI = crespoHernandezModel(X,Ct,TIinf);
 end

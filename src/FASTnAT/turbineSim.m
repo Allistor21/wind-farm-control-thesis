@@ -4,6 +4,8 @@ function data = turbineSim(meanWS,TI,TMax,controlModel)
 % of the incoming wind "meanWS", turbulence intentisity "TI", and a
 % Simulink model "controlModel". Requires a template input file
 % turbine.fst.
+%
+% EDIT: Now function detects if incoming wind speed is lower than cut in speed of NREL 5 MW reference Turbine.
 %%
 
 %Generate the turbulent wind profile to be used in the simulation.
@@ -83,7 +85,11 @@ regionBoundary2 = 10.46; %Wind speed boundary between control region 2 and contr
 slope2 = 0.1287; %Slope of relation between rotor speed and wind speed.
 intercept2 = 10.63; %Intercept of relation between rotor speed and wind speed.
 
-if meanWS < regionBoundary
+%Logic to calculate rotor speed. Is sensible to wheter or not incoming wind speed is lower than NREL 5 MW
+%reference turbine, and if so the rotor speed is 0.
+if meanWS < 3
+    omega = 0;
+elseif meanWS < regionBoundary
     omega = (slope*meanWS + intercept)/gearboxRatio;
 elseif meanWS > regionBoundary2
     omega = slope2*meanWS + intercept2;

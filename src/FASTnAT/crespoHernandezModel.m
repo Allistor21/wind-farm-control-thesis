@@ -20,7 +20,7 @@ end
 
 TIinf = TIinf/100;
 
-if X < 3
+if X < 5
     dI = 0.725*a;
 else
     dI = 0.73*(a^0.8325)*(TIinf^0.0325)*(X^(-0.32));

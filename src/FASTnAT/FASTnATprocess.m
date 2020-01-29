@@ -13,7 +13,13 @@ FASTnATout = FASTnATin;
 
 %Run a loop, for each turbine, and apply the process functions.
 for i = 1:length(FASTnATin.turbineNumber)
-    [FASTnATout.turbineData{i},newOutList] = outDataProcess(outputArray,FASTnATout.turbineData{i},outList);
+
+    %If statement to check if a FAST simulation gave out an error.
+    if strcmp(class(FASTnATout.turbineData{i}),'char')
+        FASTnATout.turbineData{i} = NaN(1);
+    else
+        [FASTnATout.turbineData{i},newOutList] = outDataProcess(outputArray,FASTnATout.turbineData{i},outList);
+    end
 end
 
 end

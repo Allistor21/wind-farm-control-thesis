@@ -19,14 +19,14 @@ figSize2 = [0 0 1200 600];
 powerLimArray = {[0 10]; [0 20]; [0 10]; [0 10]};
 loadsLimArray = {[0.5 2.5]; [1 2.5]; [1.3 1.6]; [1.3 1.6]};
 ULimArray = {[4 8];[2 12];[4 8];[3 8]};
-TILimAray = {[5 20];[5 25];[4 20];[8 30]};
+TILimAray = {[5 20];[5 25];[4 20];[8 40]};
 
 fontSize = 30;
 lineWidth = 1.8;
 markerSize = 9;
 
 for l = 1:length(prmtrList)
-    load(['sstvt_' prmtrList{l} '.mat'])
+    load(['sstvt_' prmtrList{l} '2.mat'])
 
 %----------------- Pre-process data -------------------------------------------------------------------------------------------------
 
@@ -47,6 +47,10 @@ for l = 1:length(prmtrList)
         CtArray = zeros(1,length(curResult.turbineNumber));
 
         for j = 1:length(curResult.turbineNumber)
+
+            if isnan(curResult.turbineData{j})
+                continue
+            end
         
             powerArray(j) = curResult.turbineData{j}(1,1);
             loadsArray(j) = curResult.turbineData{j}(2,2);
@@ -104,7 +108,7 @@ for l = 1:length(prmtrList)
 
     grid on
 
-    print(['verifFarmPerformance_' prmtrList{l}],'-depsc');
+    print(['verifFarmPerformance_' prmtrList{l} '_2'],'-depsc');
 
 %----------------- Wind speed at each turbine, for all values in sensitivity domain -------------------------------------------------------------
 
@@ -145,7 +149,7 @@ for l = 1:length(prmtrList)
 
     grid on
 
-    print(['verifDistrWS_' prmtrList{l}],'-depsc');
+    print(['verifDistrWS_' prmtrList{l} '_2'],'-depsc');
 
 %----------------- Turbulence intensity at each turbine, for all values in sensitivity domain ------------------------------------------
 
@@ -185,7 +189,7 @@ for l = 1:length(prmtrList)
 
     grid on
 
-    print(['verifDistrTI_' prmtrList{l}],'-depsc');
+    print(['verifDistrTI_' prmtrList{l} '_2'],'-depsc');
 
 %----------------- Axial induction factor (calculated from Ct) at each turbine, for all values in sensitivity domain ------------------------------------------
 
@@ -226,7 +230,7 @@ for l = 1:length(prmtrList)
 
     grid on
 
-    print(['verifDistrInduc_' prmtrList{l}],'-depsc');
+    print(['verifDistrInduc_' prmtrList{l} '_2'],'-depsc');
 
 %----------------- Ct at each turbine, for all values in sensitivity domain ------------------------------------------
 
@@ -267,6 +271,6 @@ for l = 1:length(prmtrList)
 
     grid on
 
-    print(['verifDistrCt_' prmtrList{l}],'-depsc');
+    print(['verifDistrCt_' prmtrList{l} '_2'],'-depsc');
 
 end

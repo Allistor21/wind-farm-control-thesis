@@ -24,6 +24,9 @@ disp('%-------------------------------------------------------------------------
 disp(['                        Starting simulation of ' num2str(N) ' aligned turbines...                     ']);
 disp('%-----------------------------------------------------------------------------------------------------');
 for i = 1:N
+    %Reset flag.
+    flag = 0;
+
     %Save Wind Speed and Turb. Intensity of current iteration.
     FASTnAToutput.turbineU(i) = WS;
     FASTnAToutput.turbineTI(i) = TI;
@@ -44,14 +47,20 @@ for i = 1:N
         %Save error message on output variable.
         FASTnAToutput.turbineData(i) = {ME.message};
 
-        %Because outdata is not updated, apply wake model at 2*X*D,
-        xx = 2*X;
+        %Change flag.
+        flag = 1;
     end
-    
-    %Apply wake model.
-    n = findLineNumber('RtAeroCt',OutList);
-    Ct = mean(outData(:,n));
-    [WS,TI] = wakeModel(wakeModelType,Ct,WS,X,Uinf,TIinf);
+
+    %Apply wake model. If statement checks if the wind speed is lower than cut-in speed. In that case,
+    %apply wake model using Ct of last turbine, with twice the downstream distance.
+    if WS < 3 | flag == 1
+        xx = 2*X;
+        [WS,TI] = wakeModel(wakeModelType,Ct,FASTnAToutput.turbineU(i-1),xx,Uinf,TIinf);
+    else
+        n = findLineNumber('RtAeroCt',OutList);
+        Ct = mean(outData(:,n));
+        [WS,TI] = wakeModel(wakeModelType,Ct,WS,xx,Uinf,TIinf);
+    end
 end
 
 disp('%-----------------------------------------------------------------------------------------------------');
