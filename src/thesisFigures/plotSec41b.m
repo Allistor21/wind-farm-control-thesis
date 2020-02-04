@@ -15,8 +15,8 @@ outputArray = {'Power','CombRootMc1'};
 [pitch5.sweepStruct,OutList] = FASTSweepUvsTIProcess(pitch5.sweepStruct,outputArray,OutList);
 structs = [pitch0.sweepStruct,pitch5.sweepStruct];
 
-zLabelNames = {'Power (kW)','Comb. BRDM (Nm)'};
-zlimsArray = { [0 6000] , [0 500] ; [2000 10000] , [500 2000] };
+zLabelNames = {'Power (MW)','BRDM (kNm)'};
+zlimsArray = { [0 6] , [0 0.5] ; [2 10] , [0.5 2] };
 
 for t = 1:length(outputArray)
     for f = 1:length(structs)
@@ -32,7 +32,7 @@ for t = 1:length(outputArray)
                         continue
                     end
             
-                    z(i,j) = structs(f).matrixesUvsTI{i,j}(lin,t);
+                    z(i,j) = structs(f).matrixesUvsTI{i,j}(lin,t)/1000;
                 end
             end
             x = structs(f).UArray;

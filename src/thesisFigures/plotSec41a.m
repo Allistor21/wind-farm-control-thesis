@@ -42,7 +42,7 @@ legend('Instantaneous axial wind speed');
 legend('Location','northwest');
 legend('boxoff');
 
-print('Verif_wind','-dpng')
+print('Verif_wind','-depsc')
 
 %----------------
 
@@ -83,7 +83,7 @@ legend('Cp','Ct','TSR');
 legend('Location','northwest');
 legend('boxoff');
 
-print('Verif_DISCONon','-dpng')
+print('Verif_DISCONon','-depsc')
 
 %------------------
 
@@ -124,7 +124,7 @@ legend('Cp','Ct','TSR');
 legend('Location','northwest');
 legend('boxoff');
 
-print('Verif_DISCONoff','-dpng')
+print('Verif_DISCONoff','-depsc')
 
 
 %------------

@@ -16,11 +16,13 @@ X = 5;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 
-[optimiserOut,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,1)
+a = 20;
+
+%[optimiserOut1,deltaP1,deltaL1] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,1)
 
 %[optimiserOut2,deltaP2,deltaL2] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,2)
 
-%[optimiserOut3,deltaP3,deltaL3] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,3)
+[optimiserOut3,deltaP3,deltaL3] = FASTnATOptimiser_alt(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,3,a)
 
 
 

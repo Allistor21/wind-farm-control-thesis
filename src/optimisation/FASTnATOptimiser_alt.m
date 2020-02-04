@@ -1,4 +1,4 @@
-function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective,weight)
+function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsStruct,coeffsArrayCt,objective,a,weight)
     %% FASTnATOptimiser
     % This function utilises function fmincon, from Optimisation toolbox, to optimise pitch settings in a FASTnAT scenario,
     % composed of N aligned turbines, with the objective of minimising loads, while maximising power (defined by variable objFun).
@@ -11,7 +11,7 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
     %%
     
     %If no weight is given, it will be a nan value.
-    if nargin < 9
+    if nargin < 10
         weight = nan(1);
     end
     
@@ -28,11 +28,10 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
     beq = [];
     lb = zeros(1,N);
     ub = ones(1,N).*5;
-    %x0 = ones(1,N)*2.5;
-    x0 = zeros(1,N);
+    x0 = ones(1,N).*2;
+    x0(length(x0)) = 0.5;
     con = @(theta) NLConstraint(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayCt);
-    %options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','PlotFcn','optimplotfval','FiniteDifferenceType','central','UseParallel',1,'MaxFunctionEvaluations',250*N,'MaxIterations',1000)
-    options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','FiniteDifferenceType','central','UseParallel',1,'MaxFunctionEvaluations',250*N,'MaxIterations',1000)
+    options = optimoptions(@fmincon,'StepTolerance',1e-3,'Algorithm','active-set','Display','iter','FiniteDifferenceType','central','MaxFunctionEvaluations',250*N,'MaxIterations',1000)
     
     %--------------------------------------------------Define objective function-------------------------------------------------
     
@@ -45,7 +44,7 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
         objFun = @(theta) ( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt);
     elseif objective == 3 % Minimise loads, while maximising power.
         optimiserOutput.objective = 'mixed';
-        objFun = @(theta) (( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - (( sumPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) ) / sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
+        objFun = @(theta) a*(( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - (( sumPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) ) / sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
     elseif objective == 4 % Minimise loads, while maximising power, wih a specified weight.
         if isnan(weight) | weight < 0 | weight > 1
             ME = MException('MyError:weightNotValid','Weight must be a number between 0 and 1.');
@@ -73,7 +72,10 @@ function [optimiserOutput,deltaP,deltaL] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeM
     % name = [tag '__N_' num2str(N) '_Uinf_' num2str(Uinf) '_TIinf_' num2str(TIinf) '_X_' num2str(X) '_obj_' num2str(objective)  '.png'];
     % saveas(gcf,name)
     
-    %Call solver a second time, starting at the last solver's final point.
+    %Call solver a second time, starting at the last solver's final point, which is perturbed slightly.
+    optimiserOutput.pitchSettings = optimiserOutput.pitchSettings + 0.25.*randn(size(optimiserOutput.pitchSettings));
+    optimiserOutput.pitchSettings(optimiserOutput.pitchSettings < 0) = 0;
+    optimiserOutput.pitchSettings(optimiserOutput.pitchSettings > 5) = 5;
     [optimiserOutput.pitchSettings,fval,exitflag,output] = fmincon(objFun,optimiserOutput.pitchSettings,A,b,Aeq,beq,lb,ub,con,options)
     
     disp('--------------------------------------------------------------------------------------------------------------------')

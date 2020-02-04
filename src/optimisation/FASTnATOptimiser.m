@@ -28,23 +28,23 @@ Aeq = [];
 beq = [];
 lb = zeros(1,N);
 ub = ones(1,N).*5;
-x0 = ones(1,N)*2.5;
+x0 = ones(1,N).*2;
+x0(length(x0)) = 0.5;
 con = @(theta) NLConstraint(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayCt);
-%options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','PlotFcn','optimplotfval','FiniteDifferenceType','central','UseParallel',1,'MaxFunctionEvaluations',250*N,'MaxIterations',1000)
-options = optimoptions(@fmincon,'Algorithm','active-set','Display','iter','FiniteDifferenceType','central','UseParallel',1,'MaxFunctionEvaluations',250*N,'MaxIterations',1000)
+options = optimoptions(@fmincon,'StepTolerance',1e-3,'Algorithm','active-set','Display','iter','FiniteDifferenceType','central','MaxFunctionEvaluations',250*N,'MaxIterations',1000)
 
 %--------------------------------------------------Define objective function-------------------------------------------------
 
 
 if objective == 1     % Maximise power on wind farm.
-    optimiserOutput.objective = 'Maximise power';
+    optimiserOutput.objective = 'Max. power';
     objFun = @(theta) - ( sumPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) ) / sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt);
 elseif objective == 2 % Minimise loads on wind farm.
-    optimiserOutput.objective = 'Minimise loads';
+    optimiserOutput.objective = 'Min. loads';
     objFun = @(theta) ( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt);
 elseif objective == 3 % Minimise loads, while maximising power.
-    optimiserOutput.objective = 'mixed';
-    objFun = @(theta) (( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - (( sumPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) ) / sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
+    optimiserOutput.objective = 'Mixed';
+    objFun = @(theta) 10*(( rssLoads(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) - rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt) ) / rssLoads(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,2),coeffsArrayCt)) - (( sumPower(theta,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) - sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt) ) / sumPower(z,N,Uinf,TIinf,X,wakeModelType,coeffsStruct.coeffsFitObjMatrix(:,1),coeffsArrayCt));
 elseif objective == 4 % Minimise loads, while maximising power, wih a specified weight.
     if isnan(weight) | weight < 0 | weight > 1
         ME = MException('MyError:weightNotValid','Weight must be a number between 0 and 1.');

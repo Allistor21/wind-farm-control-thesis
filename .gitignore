@@ -4,3 +4,4 @@ results/*
 build/*
 build_archive/*
 NREL5MW_AxialCase/build*
+test*

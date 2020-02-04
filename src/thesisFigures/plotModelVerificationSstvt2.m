@@ -14,16 +14,16 @@ outputArray = {'Power','CombRootMc1','RtAeroCt'};
 legendLocation = {'southeast','southeast','southeast','northwest'};
 clrsArray = {'r-x';'b-p';'m-d';'g-o';'k-s'};
 
-figSize1 = [0 0 900 600];
+figSize1 = [0 0 900 820];
 figSize2 = [0 0 1200 600];
 powerLimArray = {[0 10]; [0 20]; [0 10]; [0 10]};
 loadsLimArray = {[0.5 2.5]; [1 2.5]; [1.3 1.6]; [1.3 1.6]};
 ULimArray = {[4 8];[2 12];[4 8];[3 8]};
 TILimAray = {[5 20];[5 25];[4 20];[8 40]};
 
-fontSize = 30;
-lineWidth = 1.8;
-markerSize = 9;
+fontSize = 35;
+lineWidth = 4;
+markerSize = 16;
 
 for l = 1:length(prmtrList)
     load(['sstvt_' prmtrList{l} '2.mat'])
@@ -231,46 +231,5 @@ for l = 1:length(prmtrList)
     grid on
 
     print(['verifDistrInduc_' prmtrList{l} '_2'],'-depsc');
-
-%----------------- Ct at each turbine, for all values in sensitivity domain ------------------------------------------
-
-    figure('position',figSize1)
-
-    set(gcf,'color','w');
-    set(gca, 'FontName', 'Arial');
-    set(gca, 'FontSize', fontSize);
-
-    legend('-DynamicLegend');
-    %legend('Location','southoutside','NumColumns',length(struct_sstvt.resultArray));
-    legend('Location','best');
-    legend('boxoff');
-
-    ylabel('C_{T} [-]');
-    %ylim(TILimAray{l});
-
-    xlabel('Turbine number');
-
-    hold on
-
-    for i = 1:length(struct_sstvt.resultArray)
-
-        curResult = struct_sstvt.resultArray{i}{1};
-
-        x = curResult.turbineNumber;
-        y = CtCells{i};
-
-        lgdEntry = [lgdPrmtrList{l} '= ' num2str(struct_sstvt.analysisDomain(i)) prmtrUnitsList{l}];
-        plot(x,y,clrsArray{i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-
-    end
-
-    hold off
-
-    xticks(curResult.turbineNumber);
-    xlim([1 curResult.turbineNumber(length(curResult.turbineNumber))]);
-
-    grid on
-
-    print(['verifDistrCt_' prmtrList{l} '_2'],'-depsc');
 
 end
