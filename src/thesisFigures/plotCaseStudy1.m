@@ -312,6 +312,46 @@ grid on
 
 print('caseStudy1_turbineAI','-depsc');
 
+%----------- Turbine Ct vs. turbine, vs objective --------------------------------------------------------------------------------------
+
+figure('position',figSize1)
+
+set(gcf,'color','w');
+set(gca, 'FontName', 'Arial');
+set(gca, 'FontSize', fontSize);
+
+legend('-DynamicLegend');
+legend('Location',legendLocation{1},'NumColumns',2);
+legend('boxoff');
+
+ylim([0.45 0.6]);
+ylabel('C_{T} [-]');
+
+xlabel('Turbine number')
+
+x = 1:1:5;
+
+hold on
+
+lgdEntry = 'Baseline';
+plot(x,baseCts,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+
+for i = 1:3
+
+    for j = 1:N
+        aux(j,i) = 4*aux(j,i)*(1-aux(j,i));
+    end
+
+    lgdEntry = ['Obj.=' caseStudy1Array{i}.objective];
+    plot(x,aux(:,i),clrsArray{i},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+end
+
+hold off
+
+grid on
+
+print('caseStudy1_turbineCts','-depsc');
+
 %----------- Turbine TSR vs. turbine, vs objective --------------------------------------------------------------------------------------
 
 figure('position',figSize1)
