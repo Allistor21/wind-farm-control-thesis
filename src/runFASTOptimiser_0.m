@@ -12,7 +12,7 @@ load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\
 N = 5;
 Uinf = 8;
 TIinf = 6;
-X = 5;
+X = 7;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 
@@ -20,8 +20,8 @@ objs = (1:1:3);
 
 %[optimiserOut2,deltaP2,deltaL2] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,2)
 
-%[optimiserOut3,deltaP3,deltaL3] = FASTnATOptimiser_alt(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,3,a)
+%[optimiserOut3,deltaP3,deltaL3] = FASTnATOptimiser(N,Uinf,TIinf,X,wakeModelType,coeffsFitObjStruct,coeffsFitObjArrayCt,3)
 
 
 
-elapsedTime = toc;
+%elapsedTime = toc;

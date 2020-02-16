@@ -14,15 +14,14 @@ fitType = 'linearinterp';
 
 sft3 = fit([X,Y],Z,fitType);
 
-figure
+figure('position',[0 0 900 600])
+
+plot(sft3,[X,Y],Z)
+ylabel('TI [%]');
+xlabel(['\beta [' char(176) ']']);
+zlabel('U [m/s]');
+
 
 set(gcf,'color','w');
 set(gca, 'FontName', 'Arial');
-set(gca, 'FontSize', 22);
-
-plot(sft3,[X,Y],Z)
-ylabel('Turbulence intensity [%]');
-xlabel(['\beta [' char(176) ']']);
-zlabel('Wind speed [m/s]');
-
-
+set(findall(gcf,'-property','FontSize'),'FontSize',22)

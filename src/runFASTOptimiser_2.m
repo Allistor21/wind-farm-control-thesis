@@ -12,7 +12,7 @@ load C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\NREL5MW_AxialCase\
 N = 5;
 Uinf = 8;
 TIinf = 6;
-X = 5;
+X = 7;
 wakeModelType = 'jensenCrespo';
 objs = (1:1:3);
 

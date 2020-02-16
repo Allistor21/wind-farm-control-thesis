@@ -3,7 +3,7 @@
 close all
 clear all
 
-cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\case_study_1'
+cd 'C:\Users\mfram\Documents\GitHub\wind-farm-control-thesis\results\optimisation\caseStudy1'
 
 load('caseStudy1.mat')
 
@@ -40,7 +40,7 @@ wind(1) = Uinf; turb(1) = TIinf;
 baseCps(1) = power(1)*1000/(0.5*rho*(Uinf^3)*(pi()*(D^2)/4));
 baseAI(1)  = double(solve([ 4*A*((1-A)^2) == baseCps(1) , A <= 0.5 ],A));
 baseCts(1) = 4*baseAI(1)*(1-baseAI(1));
-baseTSR(1) = ((D/2)*((slope*wind(1) + intercept)/gearboxRatio))/wind(1);
+baseTSR(1) = 75.5;
 
 
 U = Uinf; TI = TIinf;
@@ -104,7 +104,7 @@ legend('Location',legendLocation{1},'NumColumns',2);
 legend('boxoff');
 
 ylim([0.5 2]);
-ylabel('Power [MW]');
+ylabel('Averaged power [MW]');
 
 xlabel('Turbine number')
 
@@ -378,7 +378,8 @@ plot(x,baseTSR/10,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayN
 
 for i = 1:3
 
-    for j = 1:N
+    aux(1,i) = 75.5;
+    for j = 2:N
         aux(j,i) = ((D/2)*((slope*caseStudy1Array{i}.turbineU(j) + intercept)/gearboxRatio))/caseStudy1Array{i}.turbineU(j);
     end
 

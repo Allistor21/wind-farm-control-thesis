@@ -28,22 +28,16 @@ vecX = [5 7 9];
 
 %------------------------------------------- FIGURE PROPERTIES ----------------------------------------------------------
 
-figSize1 = [0 0 900 900];
+figSize1 = [0 0 900 600];
+figSize2 = [0 0 900 900];
 fontSize = 30;
 lineWidth = 2.5;
 markerSize = 10;
 
 clrsArray = {'r-s'; 'b-p'; 'k-x'}; 
-clrsArrayCoeffs = {'r-s','r--s'; 'b-p','b--p'; 'k-x','k--x'}; 
+clrsArray2 = {'r-s','r--s'; 'b-p','b--p'; 'k-x','k--x'}; 
 
 lgdList = {'[%]'; '[m/s]'; '[-]'; '[-]'}; 
-
-ylimPower = {[0.5 2]; [0 4]; [0.5 2]; [0.5 2]}; 
-ylimSigma = {[500 760]; [600 900]; [640 740]; [640 740]};
-ylimU = {[5.5 8]; [3 10]; [5.5 8]; [5.5 8]};
-ylimTI = {[0 20]; [6 25]; [6 18]; [6 18]};
-ylimCoeffs = {[0.4 0.6]; [0.3 0.6]; [0.4 0.6]; [0.4 0.6]};
-
 
 %----------------------------------------------- CODE TO GENERATE FIGURES ----------------------------------------------------------
 
@@ -55,7 +49,11 @@ for f = 1:length(names)
 
     %------------------------------------ Performance figures ------------------------------------------------------------
 
-    for i = 1:length(struct_sstvt.analysisDomain)
+    for i = 1:2:3
+        
+        if (i == 1 & strcmp(prmtr,'X'))
+            i = 2;
+        end
 
         %----------------------------------------- Data preprocessing. ------------------------------------------------------------
 
@@ -106,9 +104,11 @@ for f = 1:length(names)
         set(gca, 'FontName', 'Arial');
         set(gca, 'FontSize', fontSize);
 
-        legend('-DynamicLegend');
-        legend('Location','southoutside','NumColumns',2);
-        legend('boxoff');
+        if ( strcmp(prmtr,'Uinf') & i == 3 ) | ( strcmp(prmtr,'TIinf') & i == 3 ) | ( strcmp(prmtr,'N') & i == 3 ) | ( strcmp(prmtr,'X') & i == 3 )
+            legend('-DynamicLegend');
+            legend('Location','best');
+            legend('boxoff');
+        end
 
         ylim([0 5]);
         ylabel(['\beta_{i} [' char(176) ']']);
@@ -134,20 +134,13 @@ for f = 1:length(names)
 
         print(['caseStudy23_' prmtr '_' num2str(i)  '_turbinePitch'],'-depsc');
 
-        %----------------------------------------- Performance coeffs vs turbine number --------------------------------------------------------
+        %------------------------------------------- Turbine U & TI vs turbine number --------------------------------------------------
 
-        figure('position',figSize1)
+        figure('position',figSize2)
 
         set(gcf,'color','w');
         set(gca, 'FontName', 'Arial');
         set(gca, 'FontSize', fontSize);
-        
-        legend('Location','southoutside','NumColumns',2);
-        legend('boxoff');
-        legend('AutoUpdate','off');
-        
-        ylabel('C_{P} & C_{T} [-]');
-        ylim(ylimCoeffs{f});
 
         xlabel('Turbine number');
         xlim([1 struct_sstvt.resultArray{i,1}.turbineNumber(length(struct_sstvt.resultArray{i,1}.turbineNumber))]);
@@ -157,134 +150,53 @@ for f = 1:length(names)
 
         hold on
 
-        %Unecessary complicated code to make a better legend. Classic matlab right here.
-        L1 = plot(nan, nan, 'go','MarkerSize',markerSize);
-        L2 = plot(nan, nan, 'rs','MarkerSize',markerSize);
-        L3 = plot(nan, nan, 'bp','MarkerSize',markerSize);
-        L4 = plot(nan, nan, 'kx','MarkerSize',markerSize);
-        legend([L1, L2, L3, L4], {'Baseline','Obj.=Max. power','Obj.=Min. loads','Obj.=Mixed'});
+        yyaxis left
 
-        %Cp
-        plot(x,baseCps,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize)
-
-        aux = zeros(length(struct_sstvt.resultArray{i,1}.turbineNumber),3);
-        for j = 1:length(objs)
-
-            for b = 1:length(struct_sstvt.resultArray{i,1}.turbineNumber)
-                aux(b,j) = struct_sstvt.resultArray{i,j}.turbinePower(b)*1000/(0.5*rho*(struct_sstvt.resultArray{i,j}.turbineU(b)^3)*(pi()*(D^2)/4));
-            end
-
-            plot(x,aux(:,j),clrsArrayCoeffs{j,1},'LineWidth', lineWidth,'MarkerSize',markerSize);
-        end
-
-        %Ct
-        plot(x,baseCts,'g--o','LineWidth', lineWidth,'MarkerSize',markerSize)
-
-        for j = 1:length(objs)
-
-            for b = 1:length(struct_sstvt.resultArray{i,1}.turbineNumber)
-                aux(b,j) = double(solve([ 4*A*((1-A)^2) == aux(b,j) , A <= 0.5 ],A));
-                aux(b,j) = 4*aux(b,j)*(1-aux(b,j));
-            end
-
-            plot(x,aux(:,j),clrsArrayCoeffs{j,2},'LineWidth', lineWidth,'MarkerSize',markerSize);
-        end
-
-        hold off
-
-        grid on
-
-        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbineCoeffs'],'-depsc');
-
-        %------------------------------------------- Turbine U vs turbine number --------------------------------------------------
-
-        figure('position',figSize1)
-
-        set(gcf,'color','w');
-        set(gca, 'FontName', 'Arial');
-        set(gca, 'FontSize', fontSize);
-
-        legend('-DynamicLegend');
-        legend('Location','southoutside','NumColumns',2);
-        legend('boxoff');
+        set(gca,'ycolor','k')
 
         ylabel('U [m/s]');
-        ylim(ylimU{f});
-
-        xlabel('Turbine number');
-        xlim([1 struct_sstvt.resultArray{i,1}.turbineNumber(length(struct_sstvt.resultArray{i,1}.turbineNumber))]);
-        xticks(struct_sstvt.resultArray{i,1}.turbineNumber);
-
-        x = struct_sstvt.resultArray{i,1}.turbineNumber;
-
-        hold on
-
-        lgdEntry = 'Baseline';
-        plot(x,wind,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-
-        for j = 1:length(objs)
-            lgdEntry = ['Obj.=' struct_sstvt.resultArray{i,j}.objective];
-            plot(x,struct_sstvt.resultArray{i,j}.turbineU,clrsArray{j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        if (i==2 & strcmp(prmtr,'X')) | (i==3 & strcmp(prmtr,'X'))
+            ylim([6.4 8]);
         end
 
-        hold off
+        plot(x,wind,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize)
 
-        grid on
+        for j = 1:length(objs)
+            plot(x,struct_sstvt.resultArray{i,j}.turbineU,clrsArray2{j,1},'LineWidth', lineWidth,'MarkerSize',markerSize)
+        end
 
-        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbineU'],'-depsc');
+        yyaxis right
 
-        %------------------------------------------- Turbine TI vs turbine number --------------------------------------------------
-
-        figure('position',figSize1)
-
-        set(gcf,'color','w');
-        set(gca, 'FontName', 'Arial');
-        set(gca, 'FontSize', fontSize);
-
-        legend('-DynamicLegend');
-        legend('Location','southoutside','NumColumns',2);
-        legend('boxoff');
+        set(gca,'ycolor','k')
 
         ylabel('TI [%]');
-        ylim(ylimTI{f});
-
-        xlabel('Turbine number');
-        xlim([1 struct_sstvt.resultArray{i,1}.turbineNumber(length(struct_sstvt.resultArray{i,1}.turbineNumber))]);
-        xticks(struct_sstvt.resultArray{i,1}.turbineNumber);
-
-        x = struct_sstvt.resultArray{i,1}.turbineNumber;
-
-        hold on
+        if (i==1 & strcmp(prmtr,'N'))
+            ylim([6 18]);
+        elseif (i==2 & strcmp(prmtr,'X')) | (i==3 & strcmp(prmtr,'X'))
+            ylim([6 16]);
+        end
 
         lgdEntry = 'Baseline';
-        plot(x,turb,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        plot(x,turb,'g--o','LineWidth', lineWidth,'MarkerSize',markerSize)
 
         for j = 1:length(objs)
-            lgdEntry = ['Obj.=' struct_sstvt.resultArray{i,j}.objective];
-            plot(x,struct_sstvt.resultArray{i,j}.turbineTI,clrsArray{j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+            plot(x,struct_sstvt.resultArray{i,j}.turbineTI,clrsArray2{j,2},'LineWidth', lineWidth,'MarkerSize',markerSize)
         end
 
         hold off
 
         grid on
 
-        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbineTI'],'-depsc');
+        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbineUTI'],'-depsc');
 
-        %------------------------------------------- Turbine power vs turbine number --------------------------------------------------
+        %------------------------------------------- Turbine power & loads vs turbine number --------------------------------------------------
 
-        figure('position',figSize1)
+        figure('position',figSize2)
 
         set(gcf,'color','w');
         set(gca, 'FontName', 'Arial');
         set(gca, 'FontSize', fontSize);
 
-        legend('-DynamicLegend');
-        legend('Location','southoutside','NumColumns',2);
-        legend('boxoff');
-
-        ylabel('Power [MW]');
-        ylim(ylimPower{f});
-
         xlabel('Turbine number');
         xlim([1 struct_sstvt.resultArray{i,1}.turbineNumber(length(struct_sstvt.resultArray{i,1}.turbineNumber))]);
         xticks(struct_sstvt.resultArray{i,1}.turbineNumber);
@@ -293,56 +205,61 @@ for f = 1:length(names)
 
         hold on
 
-        lgdEntry = 'Baseline';
-        plot(x,power/1000,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+        if ( strcmp(prmtr,'Uinf') & i == 3 )
+            legend('Location','northeast');
+            legend('boxoff');
+            legend('AutoUpdate','off');
+            L1 = plot(nan, nan, 'go','LineWidth', lineWidth,'MarkerSize',markerSize);
+            L2 = plot(nan, nan, 'rs','LineWidth', lineWidth,'MarkerSize',markerSize);
+            L3 = plot(nan, nan, 'bp','LineWidth', lineWidth,'MarkerSize',markerSize);
+            L4 = plot(nan, nan, 'kx','LineWidth', lineWidth,'MarkerSize',markerSize);
+            legend([L1, L2, L3, L4], {'Baseline','Obj.=Max. power','Obj.=Min. loads','Obj.=Mixed'});
+        elseif ( strcmp(prmtr,'N') & i == 3 ) | ( strcmp(prmtr,'X') & i == 3 ) | ( strcmp(prmtr,'TIinf') & i == 3 )
+            legend('Location','east');
+            legend('boxoff');
+            legend('AutoUpdate','off');
+            L1 = plot(nan, nan, 'go','LineWidth', lineWidth,'MarkerSize',markerSize);
+            L2 = plot(nan, nan, 'rs','LineWidth', lineWidth,'MarkerSize',markerSize);
+            L3 = plot(nan, nan, 'bp','LineWidth', lineWidth,'MarkerSize',markerSize);
+            L4 = plot(nan, nan, 'kx','LineWidth', lineWidth,'MarkerSize',markerSize);
+            legend([L1, L2, L3, L4], {'Baseline','Obj.=Max. power','Obj.=Min. loads','Obj.=Mixed'});
+        end
+
+        yyaxis left
+
+        set(gca,'ycolor','k')
+
+        ylabel('Average power [MW]');
+        if (i==2 & strcmp(prmtr,'X')) | (i==3 & strcmp(prmtr,'X'))
+            ylim([0.8 2]);
+        end
+
+        plot(x,power/1000,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize)
 
         for j = 1:length(objs)
-            lgdEntry = ['Obj.=' struct_sstvt.resultArray{i,j}.objective];
-            plot(x,struct_sstvt.resultArray{i,j}.turbinePower/1000,clrsArray{j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
+            plot(x,struct_sstvt.resultArray{i,j}.turbinePower/1000,clrsArray2{j,1},'LineWidth', lineWidth,'MarkerSize',markerSize)
+        end
+
+        yyaxis right
+
+        set(gca,'ycolor','k')
+
+        ylabel('\sigma_{BRBM_{i}} [Nm]');
+        if (i==3 & strcmp(prmtr,'TIinf'))
+            ylim([500 770]);
+        end
+
+        plot(x,loads,'g--o','LineWidth', lineWidth,'MarkerSize',markerSize)
+
+        for j = 1:length(objs)
+            plot(x,struct_sstvt.resultArray{i,j}.turbineLoads,clrsArray2{j,2},'LineWidth', lineWidth,'MarkerSize',markerSize)
         end
 
         hold off
 
         grid on
 
-        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbinePower'],'-depsc');
-
-        %------------------------------------------- Turbine Loads vs turbine number --------------------------------------------------
-
-        figure('position',figSize1)
-
-        set(gcf,'color','w');
-        set(gca, 'FontName', 'Arial');
-        set(gca, 'FontSize', fontSize);
-
-        legend('-DynamicLegend');
-        legend('Location','southoutside','NumColumns',2);
-        legend('boxoff');
-
-        ylabel('\sigma_{BRBM} [Nm]');
-        ylim(ylimSigma{f});
-
-        xlabel('Turbine number');
-        xlim([1 struct_sstvt.resultArray{i,1}.turbineNumber(length(struct_sstvt.resultArray{i,1}.turbineNumber))]);
-        xticks(struct_sstvt.resultArray{i,1}.turbineNumber);
-
-        x = struct_sstvt.resultArray{i,1}.turbineNumber;
-
-        hold on
-
-        lgdEntry = 'Baseline';
-        plot(x,loads,'g-o','LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-
-        for j = 1:length(objs)
-            lgdEntry = ['Obj.=' struct_sstvt.resultArray{i,j}.objective];
-            plot(x,struct_sstvt.resultArray{i,j}.turbineLoads,clrsArray{j},'LineWidth', lineWidth,'MarkerSize',markerSize,'DisplayName',lgdEntry)
-        end
-
-        hold off
-
-        grid on
-
-        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbineLoads'],'-depsc');
+        print(['caseStudy23_' prmtr '_' num2str(i)  '_turbinePowerLoads'],'-depsc');
 
     end
 
@@ -354,11 +271,7 @@ for f = 1:length(names)
     set(gca, 'FontName', 'Arial');
     set(gca, 'FontSize', fontSize);
 
-    legend('-DynamicLegend');
-    legend('Location','southoutside','NumColumns',2);
-    legend('boxoff');
-
-    ylabel('\Delta P [%]');
+    ylabel('\Delta P_{WF} [%]');
 
     xlabel([struct_sstvt.parameter ' ' lgdList{f}]);
     xlim([struct_sstvt.analysisDomain(1) struct_sstvt.analysisDomain(length(struct_sstvt.analysisDomain))]);
@@ -387,11 +300,7 @@ for f = 1:length(names)
     set(gca, 'FontName', 'Arial');
     set(gca, 'FontSize', fontSize);
 
-    legend('-DynamicLegend');
-    legend('Location','southoutside','NumColumns',2);
-    legend('boxoff');
-
-    ylabel('\Delta L [%]');
+    ylabel('\Delta L_{WF} [%]');
 
     xlabel([struct_sstvt.parameter ' ' lgdList{f}]);
     xlim([struct_sstvt.analysisDomain(1) struct_sstvt.analysisDomain(length(struct_sstvt.analysisDomain))]);

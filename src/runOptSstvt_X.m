@@ -54,7 +54,7 @@ end
 tic
 struct_sstvt = struct('parameter',prmtr,'analysisDomain',sstvtArray,'resultArray',{cell(length(sstvtArray),length(objs))},'deltaPArray',zeros(length(sstvtArray),length(objs)),'deltaLArray',zeros(length(sstvtArray),length(objs)));
 duration = zeros(length(sstvtArray),length(objs));
-for i = 1:length(sstvtArray)
+for i = 1:2:3
     for j = 1:length(objs)
 
         tStart = tic;

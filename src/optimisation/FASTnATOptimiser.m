@@ -28,8 +28,7 @@ Aeq = [];
 beq = [];
 lb = zeros(1,N);
 ub = ones(1,N).*5;
-x0 = ones(1,N).*2;
-x0(length(x0)) = 0.5;
+x0 = ones(1,N).*2.5;
 con = @(theta) NLConstraint(theta,N,Uinf,TIinf,X,wakeModelType,coeffsArrayCt);
 options = optimoptions(@fmincon,'StepTolerance',1e-3,'Algorithm','active-set','Display','iter','FiniteDifferenceType','central','MaxFunctionEvaluations',250*N,'MaxIterations',1000)
 

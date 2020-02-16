@@ -43,24 +43,35 @@ options =
     0     11    -0.120582         -0.5                                         
     1     22    -0.120813      -0.5008            1      -0.0166      0.00885   
     2     33    -0.122016      -0.5039            1      -0.0139       0.0087  Hessian modified  
-    3     46    -0.135464       -0.544         0.25      -0.0137      0.00538  Hessian modified  
-    4     59    -0.139259      -0.5619         0.25     -0.00883      0.00279   
-    5     71    -0.140615      -0.5721          0.5     -0.00477      0.00252   
-    6     86     -0.14097      -0.5758       0.0625     -0.00407      0.00243  Hessian modified  
-    7    101    -0.141037      -0.5764       0.0625     -0.00309      0.00241   
-    8    119     -0.14107      -0.5768      0.00781     -0.00305       0.0024  Hessian modified  
-    9    138    -0.141087      -0.5769      0.00391     -0.00303      0.00239   
-   10    158    -0.141095       -0.577      0.00195     -0.00303      0.00239   
-   11    181    -0.141096       -0.577     0.000244     -0.00303      0.00239   
+    3     44    -0.123969            0            1      -0.0137       0.0119  Hessian modified  
+    4     55     -0.14115      -0.5782            1      -0.0157      0.00238   
+    5     66    -0.141202      -0.5909            1     -0.00289      0.00228   
+    6     77    -0.141474      -0.5852            1     -0.00194      0.00216   
+    7     91    -0.141478      -0.5815        0.125     -0.00163      0.00227  Hessian modified  
+    8    102    -0.141518      -0.5822            1     -0.00122      0.00224   
+    9    117    -0.141529      -0.5828       0.0625     -0.00118      0.00213  Hessian modified  
+   10    128    -0.141546      -0.5816            1      -0.0017      0.00223   
+   11    139    -0.141562      -0.5808            1     -0.00335      0.00211  Hessian modified  
+   12    150    -0.141607      -0.5763            1     -0.00234       0.0021  Hessian modified  
+   13    166    -0.141709      -0.5583       0.0313     -0.00233      0.00271  Hessian modified  
+   14    177    -0.141726      -0.5623            1      -0.0011      0.00205   
+   15    189    -0.141728      -0.5607          0.5     -0.00216      0.00138  Hessian modified  
+   16    200     -0.14173      -0.5599            1     -0.00115      0.00153  Hessian modified  
+   17    211    -0.141735      -0.5596            1     -0.00148      0.00153  Hessian modified  
+   18    229    -0.141736      -0.5592      0.00781     -0.00148      0.00205  Hessian modified  
+   19    240    -0.141738      -0.5581            1     -0.00181      0.00138   
+   20    253    -0.141739      -0.5573         0.25     -0.00103      0.00153  Hessian modified  
+   21    264    -0.141742      -0.5556            1     -0.00126      0.00196  Hessian modified  
+   22    275    -0.141743      -0.5523            1     -0.00217      0.00205  Hessian modified  
 No active inequalities.
 
 <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
 
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'pred_change','CSHelpWindow');">predicted change in the objective function</a>
-is less than the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'function_tolerance','CSHelpWindow');">function tolerance</a> and constraints 
-are satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
+fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
+twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
+satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
 
-<<a href = "matlab: createExitMsg('nlconst',5.000000e+00,true,true,'fmincon',1.284750e-07,'default',1.000000e-06,-5.770027e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
+<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',9.423878e-04,'selected',1.000000e-03,-5.522816e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
 
 
 optimiserOutput = 
@@ -71,49 +82,48 @@ optimiserOutput =
     turbineNumber: [1 2 3 4 5]
          turbineU: [8 0 0 0 0]
         turbineTI: [6 0 0 0 0]
-    pitchSettings: [2.5331 3.3719 3.4230 2.9119 0.5770]
+    pitchSettings: [2.5007 3.5037 3.5003 3.0141 0.5523]
      turbinePower: [0 0 0 0 0]
      turbineLoads: [0 0 0 0 0]
 
 
 fval =
 
-   -0.1411
+   -0.1417
 
 
 exitflag =
 
-     5
+     4
 
 
 output = 
 
   <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
 
-         iterations: 12
-          funcCount: 196
-       lssteplength: 3.0518e-05
-           stepsize: 4.2303e-05
+         iterations: 23
+          funcCount: 275
+       lssteplength: 1
+           stepsize: 0.0013
           algorithm: 'active-set'
-      firstorderopt: 0.0024
-    constrviolation: -0.5770
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the predicted change in the objective functionis less than the default value of the function tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the predicted change in the objective function,1.284750e-07, is less than options.FunctionTolerance = 1.000000e-06, and the maximum constraintviolation, -5.770027e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                                    Optionsabs(steplength*directional derivative) =   1.28e-07          FunctionTolerance =   1e-06 (default)max(constraint violation) =  -5.77e-01                     ConstraintTolerance =   1e-06 (default)'
+      firstorderopt: 0.0020
+    constrviolation: -0.5523
+            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 9.423878e-04,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, -5.522816e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   9.42e-04                        StepTolerance =   1e-03 (selected)max(constraint violation)  =  -5.52e-01              ConstraintTolerance =   1e-06 (default)'
 
 
                                 Max     Line search  Directional  First-order 
  Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11    -0.141096       -0.577                                         
-    1     29    -0.141096       -0.577      0.00781     -0.00417      0.00239   
-    2     48    -0.141096       -0.577      0.00391     -0.00381      0.00846  Hessian modified  
+    0     11    -0.141743      -0.5523                                         
+    1     22    -0.141743      -0.5517            1     -0.00237      0.00195   
 No active inequalities.
 
 <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
 
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'pred_change','CSHelpWindow');">predicted change in the objective function</a>
-is less than the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'function_tolerance','CSHelpWindow');">function tolerance</a> and constraints 
-are satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
+fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
+twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
+satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
 
-<<a href = "matlab: createExitMsg('nlconst',5.000000e+00,true,true,'fmincon',3.224057e-07,'default',1.000000e-06,-5.770121e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
+<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',1.063269e-03,'selected',1.000000e-03,-5.516618e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
 
 
 optimiserOutput = 
@@ -124,33 +134,33 @@ optimiserOutput =
     turbineNumber: [1 2 3 4 5]
          turbineU: [8 0 0 0 0]
         turbineTI: [6 0 0 0 0]
-    pitchSettings: [2.5330 3.3720 3.4231 2.9120 0.5770]
+    pitchSettings: [2.4986 3.5028 3.4997 3.0140 0.5517]
      turbinePower: [0 0 0 0 0]
      turbineLoads: [0 0 0 0 0]
 
 
 fval =
 
-   -0.1411
+   -0.1417
 
 
 exitflag =
 
-     5
+     4
 
 
 output = 
 
   <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
 
-         iterations: 3
-          funcCount: 63
-       lssteplength: 3.0518e-05
-           stepsize: 8.4694e-05
+         iterations: 2
+          funcCount: 22
+       lssteplength: 1
+           stepsize: 0.0016
           algorithm: 'active-set'
-      firstorderopt: 0.0085
-    constrviolation: -0.5770
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the predicted change in the objective functionis less than the default value of the function tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the predicted change in the objective function,3.224057e-07, is less than options.FunctionTolerance = 1.000000e-06, and the maximum constraintviolation, -5.770121e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                                    Optionsabs(steplength*directional derivative) =   3.22e-07          FunctionTolerance =   1e-06 (default)max(constraint violation) =  -5.77e-01                     ConstraintTolerance =   1e-06 (default)'
+      firstorderopt: 0.0020
+    constrviolation: -0.5517
+            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 1.063269e-03,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, -5.516618e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   1.06e-03                        StepTolerance =   1e-03 (selected)max(constraint violation)  =  -5.52e-01              ConstraintTolerance =   1e-06 (default)'
 
 --------------------------------------------------------------------------------------------------------------------
 ------------------------------------------ Processing results.... --------------------------------------------------
@@ -165,28 +175,28 @@ optimiserOut =
 
         objective: 'Max. power'
     turbineNumber: [1 2 3 4 5]
-         turbineU: [8 6.7794 6.5696 6.5181 6.4252]
-        turbineTI: [6 11.8509 11.2795 11.2721 11.8617]
-    pitchSettings: [2.5330 3.3720 3.4231 2.9120 0.5770]
-     turbinePower: [1.7184e+03 989.1673 894.7743 908.8850 946.2158]
-     turbineLoads: [657.7342 729.4301 721.0351 712.8423 694.0594]
+         turbineU: [8 6.7740 6.5875 6.5347 6.4459]
+        turbineTI: [6 11.8832 11.1432 11.1843 11.7381]
+    pitchSettings: [2.4986 3.5028 3.4997 3.0140 0.5517]
+     turbinePower: [1.7219e+03 976.6170 896.6327 909.5478 955.7886]
+     turbineLoads: [657.4371 731.2761 720.8928 713.5729 692.9124]
 
 
 deltaP =
 
-   14.1096
+   14.1743
 
 
 deltaL =
 
-   -0.0250
+    0.0063
 
 
 duration =
 
    1.0e+03 *
 
-    3.2838         0         0
+    4.5826         0         0
          0         0         0
          0         0         0
 
@@ -374,7 +384,7 @@ duration =
 
    1.0e+03 *
 
-    3.2838    1.9464         0
+    4.5826    2.3511         0
          0         0         0
          0         0         0
 
@@ -584,565 +594,8 @@ duration =
 
    1.0e+04 *
 
-    0.3284    0.1946    1.0288
+    0.4583    0.2351    1.1120
          0         0         0
-         0         0         0
-
-
-options = 
-
-  <a href="matlab: helpPopup fmincon" style="font-weight:bold">fmincon</a> options:
-
-   Options used by current <strong>Algorithm</strong> ('active-set'):
-   (<a href = "matlab: helpview([docroot '/optim/helptargets.map'],'choose_algorithm');">Other available algorithms</a>: 'interior-point', 'sqp', 'sqp-legacy', 'trust-region-reflective')
-
-   <strong>Set properties:</strong>
-                    Algorithm: 'active-set'
-                      Display: 'iter'
-         FiniteDifferenceType: 'central'
-       MaxFunctionEvaluations: 1250
-                MaxIterations: 1000
-                StepTolerance: 1.0000e-03
-
-   <strong>Default properties:</strong>
-               CheckGradients: 0
-          ConstraintTolerance: 1.0000e-06
-     FiniteDifferenceStepSize: 'eps^(1/3)'
-            FunctionTolerance: 1.0000e-06
-          OptimalityTolerance: 1.0000e-06
-                    OutputFcn: []
-                      PlotFcn: []
-    SpecifyConstraintGradient: 0
-     SpecifyObjectiveGradient: 0
-                     TypicalX: 'ones(numberOfVariables,1)'
-                  UseParallel: 0
-
-   <a href="matlab: fprintf('   <strong>Default properties:</strong>\n    HessianApproximation: ''not applicable''\n              HessianFcn: []\n      HessianMultiplyFcn: []\n             HonorBounds: 1\n          ObjectiveLimit: -1.0000e+20\n            ScaleProblem: 0\n     SubproblemAlgorithm: ''cg''\n\n')">Show options</a> not used by current <strong>Algorithm</strong> ('active-set')
-
---------------------------------------------------------------------------------------------------------------------
--------------------------------------------- Running fmincon.... ---------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
-                                Max     Line search  Directional  First-order 
- Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11   -0.0657884         -0.5                                         
-    1     22   -0.0658099       -0.499            1     -0.00585       0.0027   
-    2     33   -0.0658515      -0.4976            1     -0.00386      0.00269  Hessian modified  
-    3     44   -0.0664511      -0.4769            1     -0.00359      0.00248  Hessian modified  
-    4     56   -0.0681954      -0.3588          0.5      -0.0033      0.00201  Hessian modified  
-    5     67   -0.0681979      -0.3586            1    -0.000748      0.00201   
-    6     79   -0.0683871      -0.3273          0.5     -0.00105     0.000591  Hessian modified  
-    7     91    -0.068388      -0.3251          0.5    -0.000544      0.00186   
-    8    102   -0.0684709      -0.2877            1    -0.000578      0.00193  Hessian modified  
-    9    114   -0.0684978      -0.2548          0.5    -0.000506     0.000654  Hessian modified  
-   10    126    -0.068499       -0.251          0.5    -8.41e-05     0.000657  Hessian modified  
-   11    139   -0.0684997      -0.2474         0.25    -9.18e-05       0.0021  Hessian modified  
-   12    150   -0.0685012      -0.2478            1     -0.00157     0.000657  Hessian modified  
-   13    161   -0.0685035      -0.2445            1    -0.000494     0.000658  Hessian modified  
-   14    172   -0.0685526            0            1    -0.000495     0.000974  Hessian modified  
-   15    183   -0.0685587     -0.03386            1    -0.000135     0.000977  Hessian modified  
-   16    195   -0.0685722      -0.1231          0.5    -0.000132      0.00098  Hessian modified  
-   17    209   -0.0685745      -0.1386        0.125    -0.000107      0.00098  Hessian modified  
-No active inequalities.
-
-<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
-
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'pred_change','CSHelpWindow');">predicted change in the objective function</a>
-is less than the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'function_tolerance','CSHelpWindow');">function tolerance</a> and constraints 
-are satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
-
-<<a href = "matlab: createExitMsg('nlconst',5.000000e+00,true,true,'fmincon',9.962618e-07,'default',1.000000e-06,-1.490657e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
-
-
-optimiserOutput = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Max. power'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 0 0 0 0]
-        turbineTI: [6 0 0 0 0]
-    pitchSettings: [1.9222 2.7347 2.9713 2.5003 0.1386]
-     turbinePower: [0 0 0 0 0]
-     turbineLoads: [0 0 0 0 0]
-
-
-fval =
-
-   -0.0686
-
-
-exitflag =
-
-     5
-
-
-output = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-         iterations: 18
-          funcCount: 214
-       lssteplength: 0.0313
-           stepsize: 0.0077
-          algorithm: 'active-set'
-      firstorderopt: 9.8030e-04
-    constrviolation: -0.1386
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the predicted change in the objective functionis less than the default value of the function tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the predicted change in the objective function,9.962618e-07, is less than options.FunctionTolerance = 1.000000e-06, and the maximum constraintviolation, -1.490657e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                                    Optionsabs(steplength*directional derivative) =   9.96e-07          FunctionTolerance =   1e-06 (default)max(constraint violation) =  -1.49e-01                     ConstraintTolerance =   1e-06 (default)'
-
-
-                                Max     Line search  Directional  First-order 
- Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11   -0.0685745      -0.1386                                         
-No active inequalities.
-
-<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
-
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
-twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
-satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
-
-<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',9.802990e-04,'selected',1.000000e-03,-1.386410e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
-
-
-optimiserOutput = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Max. power'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 0 0 0 0]
-        turbineTI: [6 0 0 0 0]
-    pitchSettings: [1.9222 2.7347 2.9713 2.5003 0.1386]
-     turbinePower: [0 0 0 0 0]
-     turbineLoads: [0 0 0 0 0]
-
-
-fval =
-
-   -0.0686
-
-
-exitflag =
-
-     4
-
-
-output = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-         iterations: 1
-          funcCount: 11
-       lssteplength: 1
-           stepsize: 0.0013
-          algorithm: 'active-set'
-      firstorderopt: 9.8030e-04
-    constrviolation: -0.1386
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 9.802990e-04,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, -1.386410e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   9.80e-04                        StepTolerance =   1e-03 (selected)max(constraint violation)  =  -1.39e-01              ConstraintTolerance =   1e-06 (default)'
-
---------------------------------------------------------------------------------------------------------------------
------------------------------------------- Processing results.... --------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
--------------------------------------------- Finished optimising. --------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
-optimiserOut = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Max. power'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 7.0025 6.8916 6.8963 6.8406]
-        turbineTI: [6 11.4820 11.0109 10.8135 11.2683]
-    pitchSettings: [1.9222 2.7347 2.9713 2.5003 0.1386]
-     turbinePower: [1.7717e+03 1.1418e+03 1.0716e+03 1.1066e+03 1.1507e+03]
-     turbineLoads: [653.5136 724.2016 717.0454 709.3398 699.5771]
-
-
-deltaP =
-
-    6.8574
-
-
-deltaL =
-
-   -0.9140
-
-
-duration =
-
-   1.0e+04 *
-
-    0.3284    0.1946    1.0288
-    0.3003         0         0
-         0         0         0
-
-
-options = 
-
-  <a href="matlab: helpPopup fmincon" style="font-weight:bold">fmincon</a> options:
-
-   Options used by current <strong>Algorithm</strong> ('active-set'):
-   (<a href = "matlab: helpview([docroot '/optim/helptargets.map'],'choose_algorithm');">Other available algorithms</a>: 'interior-point', 'sqp', 'sqp-legacy', 'trust-region-reflective')
-
-   <strong>Set properties:</strong>
-                    Algorithm: 'active-set'
-                      Display: 'iter'
-         FiniteDifferenceType: 'central'
-       MaxFunctionEvaluations: 1250
-                MaxIterations: 1000
-                StepTolerance: 1.0000e-03
-
-   <strong>Default properties:</strong>
-               CheckGradients: 0
-          ConstraintTolerance: 1.0000e-06
-     FiniteDifferenceStepSize: 'eps^(1/3)'
-            FunctionTolerance: 1.0000e-06
-          OptimalityTolerance: 1.0000e-06
-                    OutputFcn: []
-                      PlotFcn: []
-    SpecifyConstraintGradient: 0
-     SpecifyObjectiveGradient: 0
-                     TypicalX: 'ones(numberOfVariables,1)'
-                  UseParallel: 0
-
-   <a href="matlab: fprintf('   <strong>Default properties:</strong>\n    HessianApproximation: ''not applicable''\n              HessianFcn: []\n      HessianMultiplyFcn: []\n             HonorBounds: 1\n          ObjectiveLimit: -1.0000e+20\n            ScaleProblem: 0\n     SubproblemAlgorithm: ''cg''\n\n')">Show options</a> not used by current <strong>Algorithm</strong> ('active-set')
-
---------------------------------------------------------------------------------------------------------------------
--------------------------------------------- Running fmincon.... ---------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
-                                Max     Line search  Directional  First-order 
- Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11   -0.0079182         -0.5                                         
-No active inequalities.
-
-<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
-
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
-twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
-satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
-
-<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',1.529100e-03,'selected',1.000000e-03,-5.000000e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
-
-
-optimiserOutput = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Min. loads'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 0 0 0 0]
-        turbineTI: [6 0 0 0 0]
-    pitchSettings: [2 2 2 2 0.5000]
-     turbinePower: [0 0 0 0 0]
-     turbineLoads: [0 0 0 0 0]
-
-
-fval =
-
-   -0.0079
-
-
-exitflag =
-
-     4
-
-
-output = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-         iterations: 1
-          funcCount: 11
-       lssteplength: 1
-           stepsize: 0.0021
-          algorithm: 'active-set'
-      firstorderopt: 0.0015
-    constrviolation: -0.5000
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 1.529100e-03,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, -5.000000e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   1.53e-03                        StepTolerance =   1e-03 (selected)max(constraint violation)  =  -5.00e-01              ConstraintTolerance =   1e-06 (default)'
-
-
-                                Max     Line search  Directional  First-order 
- Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11   -0.0079182         -0.5                                         
-No active inequalities.
-
-<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
-
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
-twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
-satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
-
-<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',1.529100e-03,'selected',1.000000e-03,-5.000000e-01,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
-
-
-optimiserOutput = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Min. loads'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 0 0 0 0]
-        turbineTI: [6 0 0 0 0]
-    pitchSettings: [2 2 2 2 0.5000]
-     turbinePower: [0 0 0 0 0]
-     turbineLoads: [0 0 0 0 0]
-
-
-fval =
-
-   -0.0079
-
-
-exitflag =
-
-     4
-
-
-output = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-         iterations: 1
-          funcCount: 11
-       lssteplength: 1
-           stepsize: 0.0021
-          algorithm: 'active-set'
-      firstorderopt: 0.0015
-    constrviolation: -0.5000
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 1.529100e-03,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, -5.000000e-01, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   1.53e-03                        StepTolerance =   1e-03 (selected)max(constraint violation)  =  -5.00e-01              ConstraintTolerance =   1e-06 (default)'
-
---------------------------------------------------------------------------------------------------------------------
------------------------------------------- Processing results.... --------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
--------------------------------------------- Finished optimising. --------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
-optimiserOut = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Min. loads'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 7.0117 6.8026 6.7572 6.7473]
-        turbineTI: [6 11.4183 11.7306 11.8176 11.8375]
-    pitchSettings: [2 2 2 2 0.5000]
-     turbinePower: [1.7663e+03 1.1954e+03 1.0921e+03 1.0705e+03 1.1019e+03]
-     turbineLoads: [653.9181 718.5413 714.9741 714.5976 706.1095]
-
-
-deltaP =
-
-    6.5788
-
-
-deltaL =
-
-   -0.7918
-
-
-duration =
-
-   1.0e+04 *
-
-    0.3284    0.1946    1.0288
-    0.3003    0.0312         0
-         0         0         0
-
-
-options = 
-
-  <a href="matlab: helpPopup fmincon" style="font-weight:bold">fmincon</a> options:
-
-   Options used by current <strong>Algorithm</strong> ('active-set'):
-   (<a href = "matlab: helpview([docroot '/optim/helptargets.map'],'choose_algorithm');">Other available algorithms</a>: 'interior-point', 'sqp', 'sqp-legacy', 'trust-region-reflective')
-
-   <strong>Set properties:</strong>
-                    Algorithm: 'active-set'
-                      Display: 'iter'
-         FiniteDifferenceType: 'central'
-       MaxFunctionEvaluations: 1250
-                MaxIterations: 1000
-                StepTolerance: 1.0000e-03
-
-   <strong>Default properties:</strong>
-               CheckGradients: 0
-          ConstraintTolerance: 1.0000e-06
-     FiniteDifferenceStepSize: 'eps^(1/3)'
-            FunctionTolerance: 1.0000e-06
-          OptimalityTolerance: 1.0000e-06
-                    OutputFcn: []
-                      PlotFcn: []
-    SpecifyConstraintGradient: 0
-     SpecifyObjectiveGradient: 0
-                     TypicalX: 'ones(numberOfVariables,1)'
-                  UseParallel: 0
-
-   <a href="matlab: fprintf('   <strong>Default properties:</strong>\n    HessianApproximation: ''not applicable''\n              HessianFcn: []\n      HessianMultiplyFcn: []\n             HonorBounds: 1\n          ObjectiveLimit: -1.0000e+20\n            ScaleProblem: 0\n     SubproblemAlgorithm: ''cg''\n\n')">Show options</a> not used by current <strong>Algorithm</strong> ('active-set')
-
---------------------------------------------------------------------------------------------------------------------
--------------------------------------------- Running fmincon.... ---------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
-                                Max     Line search  Directional  First-order 
- Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11     -0.14497         -0.5                                         
-    1     22     -0.14557      -0.4837            1      -0.0258        0.017   
-    2     33    -0.152262      -0.2792            1      -0.0235        0.017  Hessian modified  
-    3     44    -0.161497            0            1      -0.0228       0.0142  Hessian modified  
-    4     55    -0.162327            0            1      -0.0143       0.0153  Hessian modified  
-    5     68    -0.162924            0         0.25      -0.0141      0.00903  Hessian modified  
-    6     79    -0.165394            0            1     -0.00995      0.00575   
-    7     92     -0.16568            0         0.25     -0.00542      0.00677   
-    8    103    -0.165685            0            1     -0.00557       0.0056   
-    9    114     -0.16577            0            1      -0.0052        0.005  Hessian modified  
-   10    125    -0.165785            0            1     -0.00355      0.00674  Hessian modified  
-   11    136    -0.165805            0            1     -0.00596      0.00552  Hessian modified  
-   12    147    -0.165812            0            1     -0.00502      0.00502  Hessian modified  
-   13    160    -0.165813            0         0.25     -0.00358      0.00673  Hessian modified  
-Active inequalities (to within options.ConstraintTolerance = 1e-06):
-  lower      upper     ineqlin   ineqnonlin
-    5                                 
-
-<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
-
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
-twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
-satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
-
-<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',1.879018e-03,'selected',1.000000e-03,0.000000e+00,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
-
-
-optimiserOutput = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Mixed'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 0 0 0 0]
-        turbineTI: [6 0 0 0 0]
-    pitchSettings: [2.1107 2.7259 2.4981 2.4993 0]
-     turbinePower: [0 0 0 0 0]
-     turbineLoads: [0 0 0 0 0]
-
-
-fval =
-
-   -0.1658
-
-
-exitflag =
-
-     4
-
-
-output = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-         iterations: 14
-          funcCount: 160
-       lssteplength: 1
-           stepsize: 0.0025
-          algorithm: 'active-set'
-      firstorderopt: 0.0067
-    constrviolation: 0
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 1.879018e-03,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, 0.000000e+00, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   1.88e-03                        StepTolerance =   1e-03 (selected)max(constraint violation)  =   0.00e+00              ConstraintTolerance =   1e-06 (default)'
-
-
-                                Max     Line search  Directional  First-order 
- Iter F-count        f(x)   constraint   steplength   derivative   optimality Procedure 
-    0     11    -0.165813            0                                         
-    1     23    -0.165814            0          0.5     -0.00851      0.00551   
-Active inequalities (to within options.ConstraintTolerance = 1e-06):
-  lower      upper     ineqlin   ineqnonlin
-    5                                 
-
-<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
-
-fmincon stopped because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'norm_search_direction','CSHelpWindow');">size of the current search direction</a> is less than
-twice the selected value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
-satisfied to within the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
-
-<<a href = "matlab: createExitMsg('nlconst',4.000000e+00,true,true,'fmincon',1.932505e-03,'selected',1.000000e-03,0.000000e+00,'default',1.000000e-06,0.000000e+00,'',0.000000e+00);">stopping criteria details</a>>
-
-
-optimiserOutput = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Mixed'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 0 0 0 0]
-        turbineTI: [6 0 0 0 0]
-    pitchSettings: [2.1113 2.7255 2.5006 2.5027 0]
-     turbinePower: [0 0 0 0 0]
-     turbineLoads: [0 0 0 0 0]
-
-
-fval =
-
-   -0.1658
-
-
-exitflag =
-
-     4
-
-
-output = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-         iterations: 2
-          funcCount: 23
-       lssteplength: 1
-           stepsize: 0.0023
-          algorithm: 'active-set'
-      firstorderopt: 0.0055
-    constrviolation: 0
-            message: 'Local minimum possible. Constraints satisfied.fmincon stopped because the size of the current search direction is less thantwice the selected value of the step size tolerance and constraints are satisfied to within the default value of the constraint tolerance.Stopping criteria details:Optimization stopped because the norm of the current search direction, 1.932505e-03,is less than 2*options.StepTolerance = 1.000000e-03, and the maximum constraint violation, 0.000000e+00, is less than options.ConstraintTolerance = 1.000000e-06.Optimization Metric                                              Optionsnorm(search direction) =   1.93e-03                        StepTolerance =   1e-03 (selected)max(constraint violation)  =   0.00e+00              ConstraintTolerance =   1e-06 (default)'
-
---------------------------------------------------------------------------------------------------------------------
------------------------------------------- Processing results.... --------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
--------------------------------------------- Finished optimising. --------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
-
-optimiserOut = 
-
-  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
-
-        objective: 'Mixed'
-    turbineNumber: [1 2 3 4 5]
-         turbineU: [8 7.0256 6.8955 6.8404 6.8287]
-        turbineTI: [6 11.3214 11.0130 11.2690 11.2860]
-    pitchSettings: [2.1113 2.7255 2.5006 2.5027 0]
-     turbinePower: [1.7564e+03 1.1538e+03 1.1063e+03 1.0799e+03 1.1450e+03]
-     turbineLoads: [654.7035 722.6797 712.0106 713.8436 698.4597]
-
-
-deltaP =
-
-    6.8382
-
-
-deltaL =
-
-   -0.9743
-
-
-duration =
-
-   1.0e+04 *
-
-    0.3284    0.1946    1.0288
-    0.3003    0.0312    0.4302
          0         0         0
 
 
@@ -1343,9 +796,9 @@ duration =
 
    1.0e+04 *
 
-    0.3284    0.1946    1.0288
-    0.3003    0.0312    0.4302
-    0.4293         0         0
+    0.4583    0.2351    1.1120
+         0         0         0
+    0.4505         0         0
 
 
 options = 
@@ -1517,9 +970,9 @@ duration =
 
    1.0e+04 *
 
-    0.3284    0.1946    1.0288
-    0.3003    0.0312    0.4302
-    0.4293    0.0324         0
+    0.4583    0.2351    1.1120
+         0         0         0
+    0.4505    0.0279         0
 
 
 options = 
@@ -1701,7 +1154,7 @@ duration =
 
    1.0e+04 *
 
-    0.3284    0.1946    1.0288
-    0.3003    0.0312    0.4302
-    0.4293    0.0324    0.2685
+    0.4583    0.2351    1.1120
+         0         0         0
+    0.4505    0.0279    0.2113
 
